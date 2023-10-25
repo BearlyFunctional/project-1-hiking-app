@@ -20,27 +20,44 @@ $(document).ready(function () {
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
 		const location = document.getElementById("locationInput").value;
-		const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={weatherApiKey}`;
+		const limit = 1;
+		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
 
-		//Make API Weather request using Fetch//
-		fetch(weatherUrl);
-		console
-			.log(weatherUrl)
-			.then((res) => res.json)
-			.then((date) => {
-				const weatherDate = data.list;
-				document.getElementById("weatherData").innerHTML = JSON.stringify(
-					weatherData,
-					null,
-					2
-				);
+		// Make an API request to get location coordinates
+		fetch(geoUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				// Check if the API returned any locations
+				if (data.length > 0) {
+					const { lat, lon } = data[0]; // Extract coordinates
+
+					// Use the coordinates to fetch weather data
+					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+
+					// Make an API request to get weather data
+					fetch(weatherUrl)
+						.then((response) => response.json())
+						.then((data) => {
+							// Extract and display weather data by the hour
+							const weatherData = data.list;
+							// Update the "weatherData" div with the data
+							document.getElementById("weatherData").innerHTML = JSON.stringify(
+								weatherData,
+								null,
+								2
+							);
+						})
+						.catch((error) => {
+							console.warn("Error fetching weather data:", error);
+						});
+				} else {
+					console.warn("Location not found.");
+				}
 			})
 			.catch((error) => {
-				console.warn("Error fetching weather data:", error);
+				console.error("Error fetching location data:", error);
 			});
 	}
 	// Add event listener to the button
-	document
-		.getElementById("getWeatherButton")
-		.addEventListener("click", getWeather);
+	document.getElementById("getSearch").addEventListener("click", getWeather);
 });
