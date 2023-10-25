@@ -5,14 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--link to fontawesone and materialize for css frameworks-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="./Assets/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
 
+<!--Begin Weather Section-->
+<section class="weather-container" id="weather">Weather
+<p id="currentDay" class="displayDateTime"></p>
+<input type="text" id="locationInput" placeholder="Enter city, state, or zip code">
+<button id="getWeatherButton">Get Weather</button>
+<div id="weatherData"></div>
+
+
+
+</section>
+
 <body>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./Assets/script.js"></script>
+    <!--add jquery and dayjs libraries for time and stying-->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/assets/script.js"></script>
 </body>
 
 </html>
