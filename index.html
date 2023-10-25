@@ -8,14 +8,21 @@
     <!--link to fontawesone and materialize for css frameworks-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/style.css">
 </head>
+<header>
+    <h1 class="title">Hiking App 1.0</h1>
+    <input type="text" id="locationInput" placeholder="AnyCity, AnyState, Country">
+    <button id="getSearch">Search</button>
+</header>
+
 
 <!--Begin Weather Section-->
 <section class="weather-container" id="weather">Weather
 <p id="currentDay" class="displayDateTime"></p>
-<input type="text" id="locationInput" placeholder="Enter city, state, or zip code">
-<button id="getWeatherButton">Get Weather</button>
+
+
 <div id="weatherData"></div>
 
 
