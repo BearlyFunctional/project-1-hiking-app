@@ -8,27 +8,23 @@
     <!--link to fontawesone and materialize for css frameworks-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!--optional google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/style.css">
 </head>
+
 <header>
     <h1 class="title">Hiking App 1.0</h1>
+    <!---location by city, state, country-->
     <input type="text" id="locationInput" placeholder="AnyCity, AnyState, Country">
+    <!---seach button-->
     <button id="getSearch">Search</button>
 </header>
-
-
 <!--Begin Weather Section-->
 <section class="weather-container" id="weather">Weather
 <p id="currentDay" class="displayDateTime"></p>
-
-
 <div id="weatherData"></div>
-
-
-
 </section>
-
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!--add jquery and dayjs libraries for time and stying-->

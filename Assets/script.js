@@ -24,38 +24,40 @@ $(document).ready(function () {
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
 
 		// Make an API request to get location coordinates
-        fetch(geoUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Check if the API returned any locations
-            if (data.length > 0) {
-                const { lat, lon } = data[0]; // Extract coordinates
+		fetch(geoUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				// Check if the API returned any locations
+				if (data.length > 0) {
+					const { lat, lon } = data[0]; // Extract coordinates
 
-                // Use the coordinates to fetch weather data
-                const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+					// Use the coordinates to fetch weather data
+					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
 
-                // Make an API request to get weather data
-                fetch(weatherUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Extract and display weather data by the hour
-                        const weatherData = data.list;
-                        // Update the "weatherData" div with the data
-                        document.getElementById('weatherData').innerHTML = JSON.stringify(weatherData, null, 2);
-                    })
-                    .catch(error => {
-                        console.warn('Error fetching weather data:', error);
-                    });
-            } else {
-                console.warn('Location not found.');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching location data:', error);
+					// Make an API request to get weather data
+					fetch(weatherUrl)
+						.then((response) => response.json())
+						.then((data) => {
+							// Extract and display weather data by the hour
+							const weatherData = data.list;
+							// Update the "weatherData" div with the data
+							document.getElementById("weatherData").innerHTML = JSON.stringify(
+								weatherData,
+								null,
+								2
+							);
+						})
+						.catch((error) => {
+							console.warn("Error fetching weather data:", error);
+						});
+				} else {
+					console.warn("Location not found.");
+				}
+			})
+			.catch((error) => {
+				console.error("Error fetching location data:", error);
 			});
 	}
 	// Add event listener to the button
-	document
-		.getElementById('getSearch')
-		.addEventListener('click', getWeather);
+	document.getElementById("getSearch").addEventListener("click", getWeather);
 });
