@@ -22,7 +22,9 @@ $(document).ready(function () {
 		const location = document.getElementById("locationInput").value;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
-
+        const iconCode = "10d";
+        const baseIconUrl = "https://openweathermap.org/img/wn/";
+        const iconUrl = `${baseIconUrl}${iconCode}.png`;
 		// Make an API request to get location coordinates
 		fetch(geoUrl)
 			.then((response) => response.json())
@@ -32,7 +34,7 @@ $(document).ready(function () {
 					const { lat, lon } = data[0]; // Extract coordinates
 
 					// Use the coordinates to fetch weather data
-					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
+					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=imperial`;
 
 					// Make an API request to get weather data
 					fetch(weatherUrl)
@@ -40,12 +42,15 @@ $(document).ready(function () {
 						.then((data) => {
 							// Extract and display weather data by the hour
 							const weatherData = data.list;
+                            console.log(weatherData)
+                            console.log(weatherData[0].main.temp)
 							// Update the "weatherData" div with the data
 							document.getElementById("weatherData").innerHTML = JSON.stringify(
-								weatherData,
-								null,
-								2
-							);
+                                weatherData[0].main.temp,
+                            )+" degrees";
+                            const weatherIconElement = document.getElementById("weatherIcon");
+                            weatherIconElement.src = iconUrl;
+                                //console.warn(iconUrl)
 						})
 						.catch((error) => {
 							console.warn("Error fetching weather data:", error);
