@@ -3,8 +3,8 @@ $(document).ready(function () {
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
 
-	//weather//
-	//day and time//
+	//weather
+	//day and time
 	//display current date and time
 	currentDayElement.text(currentTime);
 	//update time function
@@ -22,9 +22,9 @@ $(document).ready(function () {
 		const location = document.getElementById("locationInput").value;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
-        const iconCode = "10d";
-        const baseIconUrl = "https://openweathermap.org/img/wn/";
-        const iconUrl = `${baseIconUrl}${iconCode}.png`;
+        const iconCode = "10d";//temporary iconCode
+        const baseIconUrl = "https://openweathermap.org/img/wn/";//baseURL for icon
+        const iconUrl = `${baseIconUrl}${iconCode}.png`;//structure to call icons
 		// Make an API request to get location coordinates
 		fetch(geoUrl)
 			.then((response) => response.json())
@@ -48,17 +48,21 @@ $(document).ready(function () {
 							document.getElementById("weatherData").innerHTML = JSON.stringify(
                                 weatherData[0].main.temp,
                             )+" degrees";
+                            //add weather Icon
                             const weatherIconElement = document.getElementById("weatherIcon");
                             weatherIconElement.src = iconUrl;
                                 //console.warn(iconUrl)
 						})
+                            //error protection
 						.catch((error) => {
 							console.warn("Error fetching weather data:", error);
 						});
 				} else {
+                    //error protection
 					console.warn("Location not found.");
 				}
 			})
+            //error protection
 			.catch((error) => {
 				console.error("Error fetching location data:", error);
 			});

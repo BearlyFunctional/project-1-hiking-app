@@ -23,11 +23,21 @@ header {
   }
 
   .weather-container {
-    width: 50%;
+    width: 45%;
     border: solid 1px white;
     color: #8e8e8e;
     margin: 50px 0 0 10px
-    
-
-
   }
+
+#weather {
+  text-align: left;
+}
+
+#timeTitle {
+  text-align: center;
+  }
+
+.displayDateTime {
+  text-align: center;
+  margin-top: -15px;
+}
