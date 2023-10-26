@@ -20,17 +20,38 @@
     <!---seach button-->
     <button id="getSearch">Search</button>
 </header>
-<!--Begin Weather Section-->
-<section class="weather-container" id="weather">Weather
-    <p id="timeTitle">Today's Date and Time</p>
-    <p id="currentDay" class="displayDateTime"></p>
-    <div id="weatherData"></div>
-    <div id="weatherDate"></div>
-    <!--Weather Icons Container-->
-    <div id="weatherIconContainer">
-        <img id="weatherIcon" src="" alt="Weather Icon">
-    </div>
-</section>
+<!--Main Container-->
+<div class="app-container" id="main">
+    <!--Begin Weather Section-->
+    <section class="weather-container" id="weather">Weather Container
+        <p id="timeTitle">Today's Date and Time</p>
+        <p id="currentDay" class="displayDateTime"></p>
+        <div id="weatherData"></div>
+        <div id="weatherDate"></div>
+        <!--Weather Icons Container-->
+        <div id="weatherIconContainer">
+            <img id="weatherIcon" src="" alt="Weather Icon">
+        </div>
+    </section>
+    <!--Search Results container-->
+    <section class="search-container" id="results">Search Results Container
+        <div class="map">MAP CONTAINER
+            <img id="mapImage" src="" alt="map">
+        </div>
+        <div class="results-list">Results List</div>
+        <ul>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+        </ul>
+
+
+    </section>
+</div>
 
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

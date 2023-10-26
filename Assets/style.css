@@ -15,18 +15,24 @@ header {
   }
 
   #locationInput {
-    width: 400px;
+    width: 30%;
     border: solid 1px;
     background-color: #2e2e2e;
     margin: 10px;
     color: white;
   }
 
+.app-container {
+  display: flex;
+  justify-content: space-between;
+  
+}
+  
   .weather-container {
-    width: 45%;
+    width: 50%;
     border: solid 1px white;
     color: #8e8e8e;
-    margin: 50px 0 0 10px
+    margin: 50px 0 0 10px;
   }
 
 #weather {
@@ -40,4 +46,26 @@ header {
 .displayDateTime {
   text-align: center;
   margin-top: -15px;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+  height: 90vh;
+  border: solid 1px white;
+  color: #8e8e8e;
+  margin: 50px 10px 0 10px;
+}
+
+.map {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  border: solid 2px black;
+  text-align: center;
+  height: 250px;
 }
