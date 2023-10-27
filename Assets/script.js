@@ -16,15 +16,14 @@ $(document).ready(function () {
 	updateCurrentTime();
 	// update the current date and time every second
 	setInterval(updateCurrentTime, 1000);
-
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
 		const location = document.getElementById("locationInput").value;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
-        const iconCode = "10d";//temporary iconCode
-        const baseIconUrl = "https://openweathermap.org/img/wn/";//baseURL for icon
-        const iconUrl = `${baseIconUrl}${iconCode}.png`;//structure to call icons
+		const iconCode = "10d"; //temporary iconCode
+		const baseIconUrl = "https://openweathermap.org/img/wn/"; //baseURL for icon
+		const iconUrl = `${baseIconUrl}${iconCode}.png`; //structure to call icons
 		// Make an API request to get location coordinates
 		fetch(geoUrl)
 			.then((response) => response.json())
@@ -32,37 +31,43 @@ $(document).ready(function () {
 				// Check if the API returned any locations
 				if (data.length > 0) {
 					const { lat, lon } = data[0]; // Extract coordinates
-
 					// Use the coordinates to fetch weather data
 					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=imperial`;
-
 					// Make an API request to get weather data
 					fetch(weatherUrl)
 						.then((response) => response.json())
 						.then((data) => {
 							// Extract and display weather data by the hour
+							//structure to call icons
 							const weatherData = data.list;
-                            console.log(weatherData)
-                            console.log(weatherData[0].main.temp)
+							console.log(weatherData);
+							console.log(weatherData[0].main.temp);
 							// Update the "weatherData" div with the data
-							document.getElementById("weatherData").innerHTML = JSON.stringify(
-                                weatherData[0].main.temp,
-                            )+" degrees";
-                            //add weather Icon
-                            const weatherIconElement = document.getElementById("weatherIcon");
-                            weatherIconElement.src = iconUrl;
-                                //console.warn(iconUrl)
+							const weatherDiv = document.getElementById("weatherData");
+							weatherData.forEach(function ({ main, weather }) {
+								const { temp } = main;
+								const { icon } = weather[0];
+								const weatherDayDiv = document.createElement("div");
+								const tempDay = document.createElement("p");
+								const weatherIcon = document.createElement("img");
+								weatherIcon.src = `${baseIconUrl}${icon}.png`;
+								tempDay.textContent = temp;
+								weatherDayDiv.appendChild(tempDay);
+								weatherDayDiv.appendChild(weatherIcon);
+								weatherDiv.appendChild(weatherDayDiv);
+							});
+							//add weather Icon
 						})
-                            //error protection
+						//error protection
 						.catch((error) => {
 							console.warn("Error fetching weather data:", error);
 						});
 				} else {
-                    //error protection
+					//error protection
 					console.warn("Location not found.");
 				}
 			})
-            //error protection
+			//error protection
 			.catch((error) => {
 				console.error("Error fetching location data:", error);
 			});

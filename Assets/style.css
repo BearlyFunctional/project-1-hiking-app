@@ -29,12 +29,12 @@ header {
   
 }
   
-  .weather-container {
-    width: 50%;
-    border: solid 1px white;
-    color: #8e8e8e;
-    margin: 50px 0 0 10px;
-  }
+.weather-container {
+  width: 50%;
+  border: solid 1px white;
+  color: #8e8e8e;
+  margin: 50px 0 0 10px;
+}
 
 #weather {
   text-align: left;
