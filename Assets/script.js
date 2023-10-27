@@ -23,7 +23,7 @@ $(document).ready(function () {
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
 		const iconCode = "10d"; //temporary iconCode
 		const baseIconUrl = "https://openweathermap.org/img/wn/"; //baseURL for icon
-		const iconUrl = `${baseIconUrl}${iconCode}.png`; //structure to call icons
+		const iconUrl = `${baseIconUrl}${iconCode}@2x.png`; //structure to call icons
 		// Make an API request to get location coordinates
 		fetch(geoUrl)
 			.then((response) => response.json())
@@ -50,7 +50,7 @@ $(document).ready(function () {
 								const weatherDayDiv = document.createElement("div");
 								const tempDay = document.createElement("p");
 								const weatherIcon = document.createElement("img");
-								weatherIcon.src = `${baseIconUrl}${icon}.png`;
+								weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
 								tempDay.textContent = temp;
 								weatherDayDiv.appendChild(tempDay);
 								weatherDayDiv.appendChild(weatherIcon);
@@ -74,4 +74,12 @@ $(document).ready(function () {
 	}
 	// Add event listener to the button
 	document.getElementById("getSearch").addEventListener("click", getWeather);
+
+	var map = L.map("map").setView([51.505, -0.09], 13);
+
+	L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		maxZoom: 19,
+		attribution:
+			'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	}).addTo(map);
 });
