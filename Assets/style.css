@@ -75,7 +75,14 @@ header img {
   height: 45px;
 }
 
+#weather {
+}
+
 #map { 
-  height: 250px; 
-  width: 250px;
+  height: 100%; 
+  width: 100%;
+} 
+
+.btn {
+
 }
