@@ -60,7 +60,7 @@ header {
   margin: 50px 10px 0 10px;
 }
 
-.map {
+.mapContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,3 +74,8 @@ header {
 header img {
   height: 45px;
 }
+
+#map { 
+  height: 250px; 
+  width: 250px;
+} 
