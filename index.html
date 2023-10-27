@@ -4,34 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hiking App 1.0</title>
     <!--link to fontawesone and materialize for css frameworks-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!--optional google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <header>
-    <h1 class="title">Hiking App 1.0</h1>
+    <h1 class="title">H<span ><img src="/assets/hiking.png" alt=""></span>king App 1.0</h1>
     <!---location by city, state, country-->
     <input type="text" id="locationInput" placeholder="AnyCity, AnyState, Country">
     <!---seach button-->
     <button id="getSearch">Search</button>
 </header>
-<!--Begin Weather Section-->
-<section class="weather-container" id="weather">Weather
-<p id="currentDay" class="displayDateTime"></p>
-<div id="weatherData"></div>
-</section>
+<!--Main Container-->
+<div class="app-container" id="main">
+    <!--Begin Weather Section-->
+    <section class="weather-container" id="weather">Weather Container
+        <p id="timeTitle">Today's Date and Time</p>
+        <p id="currentDay" class="displayDateTime"></p>
+        <div id="weatherData"></div>
+        <div id="weatherDate"></div>
+        <!--Weather Icons Container-->
+        <div id="weatherIconContainer">
+            <img id="weatherIcon" src="" alt="Weather Icon">
+        </div>
+    </section>
+    <!--Search Results container-->
+    <section class="search-container" id="results">Search Results Container
+        <div class="map">MAP CONTAINER
+            <img id="mapImage" src="" alt="map">
+        </div>
+        <div class="results-list">Results List</div>
+        <ul>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+            <li>-</li>
+        </ul>
+
+
+    </section>
+</div>
+
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!--add jquery and dayjs libraries for time and stying-->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="/assets/script.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
