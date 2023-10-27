@@ -2,6 +2,7 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
+	//modal 
 	var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
