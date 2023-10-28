@@ -13,7 +13,7 @@ $(document).ready(function () {
 	currentDayElement.text(currentTime);
 	//update time function
 	function updateCurrentTime() {
-		const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A");
+		const currentTime = dayjs().format("ddd, MMM D, YYYY h:mm A");
 		currentDayElement.text(currentTime);
 	}
 	// Initial call to set the current date and time
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 							//console.log(weatherData[0].main.temp);
 							// Update the "weatherData" div with the data
-							const itemsToShow = 7;
+							const itemsToShow = 9;
 							const itemsToShow2 = 40;
 							const weatherDiv = document.getElementById("weatherData");
 							const modal = document.getElementById("myModal");
@@ -79,8 +79,6 @@ $(document).ready(function () {
 										weekday: "short",
 										month: "short",
 										day: "numeric",
-										hour: "2-digit",
-										minute: "2-digit",
 										hour12: true,
 									};
 									const formattedDate = new Intl.DateTimeFormat(
@@ -161,7 +159,7 @@ $(document).ready(function () {
 	// Function to update the Leaflet map with weather data
 	function updateMap(lat, lon) {
 		if (!map) {
-			// Create the map and layers only if they don't exist
+			// Create the map and layers
 			map = L.map("weatherMap").setView([lat, lon], 10);
 			openStreetMapLayer = L.tileLayer(
 				"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -197,29 +195,32 @@ $(document).ready(function () {
 
 			// Create a draggable marker with the custom icon and add it to the map.
 			marker = L.marker([lat, lon], {
-		
 				draggable: true, // Make the marker draggable
 			}).addTo(map);
-	
+
 			// Add a dragend event handler to update the marker's coordinates.
-			marker.on('dragend', function (event) {
+			marker.on("dragend", function (event) {
 				var newLatLng = event.target.getLatLng();
-				marker.getTooltip().setContent('Lat: ' + newLatLng.lat + ', Lon: ' + newLatLng.lng);
+				marker
+					.getTooltip()
+					.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
 				marker.openTooltip();
 			});
-	
+
 			// Add a tooltip to the marker.
-			marker.bindTooltip('Lat: ' + lat + ', Lon: ' + lon).openTooltip();
+			marker.bindTooltip("Lat: " + lat + ", Lon: " + lon).openTooltip();
 		} else {
 			// Update the map's view.
 			map.setView([lat, lon]);
-	
+
 			// Update the marker's position.
 			marker.setLatLng([lat, lon]);
-	
+
 			// Update the marker's tooltip content.
 			var newLatLng = marker.getLatLng();
-			marker.getTooltip().setContent('Lat: ' + newLatLng.lat + ', Lon: ' + newLatLng.lng);
+			marker
+				.getTooltip()
+				.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
 			marker.openTooltip();
 		}
 	}
@@ -232,6 +233,12 @@ $(document).ready(function () {
 		// Show the weather map
 		const weatherMapDiv = document.getElementById("weatherMap");
 		weatherMapDiv.style.display = "block";
+
+		const forecastbtn = document.getElementById("forecastbtn")
+		forecastbtn.style.display = "block";
+
+		const wdata = document.getElementById("weatherData")
+		wdata.style.display = "block";
 	});
 });
 

@@ -38,7 +38,14 @@ header {
   color: #8e8e8e;
   margin: 50px 0 0 10px;
   height: 900px;
+}
+
+.time-container{
+  color:antiquewhite;
+  font-size: 20px;
+  font-weight: 400;
   
+
 }
 
 #weather {
@@ -90,6 +97,7 @@ header img {
   justify-content: center;
   border: solid 2px white;
   border-radius: 5px;
+  justify-content: space-between;
 }
 
 .modal {
