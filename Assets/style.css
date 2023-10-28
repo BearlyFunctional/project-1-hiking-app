@@ -30,10 +30,14 @@ header {
 }
   
 .weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 50%;
   border: solid 1px white;
   color: #8e8e8e;
   margin: 50px 0 0 10px;
+  
 }
 
 #weather {
@@ -54,7 +58,7 @@ header {
   flex-direction: column;
   align-items: center;
   width: 45%;
-  height: 90vh;
+ 
   border: solid 1px white;
   color: #8e8e8e;
   margin: 50px 10px 0 10px;
@@ -75,7 +79,21 @@ header img {
   height: 45px;
 }
 
-#weather {
+#weatherData {
+  display: flex;
+  color: black;
+  text-align: center;
+  align-items: center;
+  gap: 50px;
+  background-color: #8e8e8e;
+  justify-content: center;
+  border: solid 2px white;
+  border-radius: 5px;
+}
+
+.modal {
+  background-color: #4e4e4e;
+  text-align: center;
 }
 
 #map { 
@@ -83,6 +101,3 @@ header img {
   width: 100%;
 } 
 
-.btn {
-
-}

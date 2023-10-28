@@ -2,9 +2,9 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
-	//modal 
-	var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
+	//modal
+	var elems = document.querySelectorAll(".modal");
+	var instances = M.Modal.init(elems);
 
 	//weather
 	//day and time
@@ -43,23 +43,77 @@ $(document).ready(function () {
 							// Extract and display weather data by the hour
 							//structure to call icons
 							const weatherData = data.list;
-							console.log(weatherData);
-							console.log(weatherData[0].main.temp);
+							//console.log(weatherData);
+
+							//console.log(weatherData[0].main.temp);
 							// Update the "weatherData" div with the data
+							const itemsToShow = 7;
+							const itemsToShow2 = 40;
 							const weatherDiv = document.getElementById("weatherData");
-							weatherData.forEach(function ({ main, weather }) {
-								const { temp } = main;
-								const { icon } = weather[0];
-								const weatherDayDiv = document.createElement("div");
-								const tempDay = document.createElement("p");
-								const weatherIcon = document.createElement("img");
-								weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
-								tempDay.textContent = temp;
-								weatherDayDiv.appendChild(tempDay);
-								weatherDayDiv.appendChild(weatherIcon);
-								weatherDiv.appendChild(weatherDayDiv);
+							const modal = document.getElementById("myModal");
+							const weatherDataDiv = modal.querySelector("#weatherData");
+							weatherDataDiv.innerHTML = "";
+							weatherData.forEach(function ({ dt_txt, main, weather }, index) {
+								if (index % itemsToShow === 0) {
+									const { temp } = main;
+									const { icon } = weather[0];
+
+									const weatherDayDiv = document.createElement("div");
+									const dateTime = document.createElement("p");
+									const tempDay = document.createElement("p");
+									const weatherIcon = document.createElement("img");
+
+									weatherIcon.src = `${baseIconUrl}${icon}.png`;
+									tempDay.textContent = `${temp}° Fahrenheit`;
+									
+									// Convert the dt_txt string to a Date object and format it
+									const date = new Date(dt_txt);
+									const options = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+									const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+									
+									dateTime.textContent = formattedDate;
+
+									weatherDayDiv.appendChild(dateTime);
+									weatherDayDiv.appendChild(weatherIcon);
+									weatherDayDiv.appendChild(tempDay);
+
+									weatherDataDiv.appendChild(weatherDayDiv);// Append to modal
+								}
 							});
-							//add weather Icon
+							// Select a second location to display the search results with the same ID "weatherData"
+							const secondWeatherDataDiv =
+								document.getElementById("weatherData");
+
+							// Clear the second location's previous results before adding new ones
+							secondWeatherDataDiv.innerHTML = "";
+
+							// Append the elements to the second location's weatherData div
+							weatherData.forEach(function ({ dt_txt, main, weather }, index) {
+								if (index % itemsToShow2 === 0) {
+									const { temp } = main;
+									const { icon } = weather[0];
+
+									const weatherDayDiv = document.createElement("div");
+									const dateTime = document.createElement("p");
+									const tempDay = document.createElement("p");
+									const weatherIcon = document.createElement("img");
+
+									weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
+									tempDay.textContent = `${temp}° Fahrenheit`;
+									
+									const date = new Date(dt_txt);
+									const options = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+									const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+							
+									dateTime.textContent = formattedDate;
+
+									weatherDayDiv.appendChild(dateTime);
+									weatherDayDiv.appendChild(weatherIcon);
+									weatherDayDiv.appendChild(tempDay);
+
+									secondWeatherDataDiv.appendChild(weatherDayDiv); // Append to the second location's weatherData div
+								}
+							});
 						})
 						//error protection
 						.catch((error) => {
