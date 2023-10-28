@@ -2,6 +2,7 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
+	var map;
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
@@ -38,7 +39,10 @@ $(document).ready(function () {
 					const { lat, lon } = data[0]; // Extract coordinates
 					// Use the coordinates to fetch weather data
 					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=imperial`;
-					// Make an API request to get weather data
+					
+					 // Make an API request to get weather data
+					//updateMap(lat, lon);
+				
 					fetch(weatherUrl)
 						.then((response) => response.json())
 						.then((data) => {
@@ -55,6 +59,7 @@ $(document).ready(function () {
 							const modal = document.getElementById("myModal");
 							const weatherDataDiv = modal.querySelector("#weatherData");
 							weatherDataDiv.innerHTML = "";
+							
 							weatherData.forEach(function ({ dt_txt, main, weather }, index) {
 								if (index % itemsToShow === 0) {
 									const { temp } = main;
@@ -133,6 +138,7 @@ $(document).ready(function () {
 									weatherDayDiv.appendChild(tempDay);
 
 									secondWeatherDataDiv.appendChild(weatherDayDiv); // Append to the second location's weatherData div
+									updateMap(lat, lon);
 								}
 							});
 						})
@@ -149,34 +155,76 @@ $(document).ready(function () {
 			.catch((error) => {
 				console.error("Error fetching location data:", error);
 			});
-		
 		}
-	// Add event listener to the button
-	document.getElementById("getSearch").addEventListener("click", function() {
-		// Call the getWeather function
-		getWeather();
+
+		// Function to update the Leaflet map with weather data
+		function updateMap(lat, lon) {
+			if (!map) {
+				// Create the map and layers only if they don't exist
+				map = L.map('weatherMap').setView([lat, lon], 10);
+				openStreetMapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 10,
+					attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+				}).addTo(map);
+				precipitationLayer = L.tileLayer('https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b', {
+					maxZoom: 10,
+					opacity: 1.0
+				}).addTo(map);
+
+				cloudLayer = L.tileLayer('https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b', {
+					maxZoom: 10,
+					opacity: 0.8
+				}).addTo(map);
+
+				temperatureLayer = L.tileLayer('https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b', {
+					maxZoom: 10,
+					opacity: 0.3
+				}).addTo(map);
+			
+			// Create a marker and add it to the map
+			marker = L.marker([lat, lon]).addTo(map);
+
+		} else {
 	
-		// Show the weather map
-		const weatherMapDiv = document.getElementById("weatherMap");
-		weatherMapDiv.style.display = "block";
-	
-		var map = L.map('weatherMap').setView([37.0902, -95.7129], 4);
+			// Update the map's view
+			map.setView([lat, lon]);
+
+			// Update the marker's position
+			marker.setLatLng([lat, lon]);
+		}
+		}
+
+  // Add an event listener to the "Search" button
+  document.getElementById("getSearch").addEventListener("click", function () {
+	// Call the getWeather function
+	getWeather();
+  
+	// Show the weather map
+	const weatherMapDiv = document.getElementById("weatherMap");
+	weatherMapDiv.style.display = "block";
+  });
+	  });
+
+ // Show the weather map
+ // const weatherMapDiv = document.getElementById("weatherMap");
+ // weatherMapDiv.style.display = "block";
+//});
+//});
+	//	var map = L.map('weatherMap').setView([37.0902, -95.7129], 4);
 	
 		// Create the OpenStreetMap layer
-		var openStreetMapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom:10,
-			attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		}).addTo(map);
+	//	var openStreetMapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	//		maxZoom:10,
+	//		attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	//	}).addTo(map);
 	
 		// Add the precipitation overlay
-		L.imageOverlay('https://tile.openweathermap.org/map/precipitation_new/0/0/0.png?appid=661e7eff94c386fb32110da5f695f39b', 
-			[[85.0, -180], [-85.0, 180]], { opacity: 1.0 }
-		).addTo(map);
+	//	L.imageOverlay('https://tile.openweathermap.org/map/precipitation_new/0/0/0.png?appid=661e7eff94c386fb32110da5f695f39b', 
+	//		[[85.0, -180], [-85.0, 180]], { opacity: 1.0 }
+	//	).addTo(map);
 
 // Add the precipitation overlay
-L.imageOverlay('https://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=661e7eff94c386fb32110da5f695f39b', 
-[[85.0, -180], [-85.0, 180]], { opacity: 0.5 }
-).addTo(map);
+//L.imageOverlay('https://tile.openweathermap.org/map/temp_new/0/0/0.png?appid=661e7eff94c386fb32110da5f695f39b', 
+//[[85.0, -180], [-85.0, 180]], { opacity: 0.5 }
+//).addTo(map);
 
-	});
-});
