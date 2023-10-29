@@ -30,7 +30,7 @@ $(document).ready(function () {
 		const iconCode = "10d"; //temporary iconCode
 		const baseIconUrl = "https://openweathermap.org/img/wn/"; //baseURL for icon
 		const iconUrl = `${baseIconUrl}${iconCode}@2x.png`; //structure to call icons
-		// Make an API request to get location coordinates
+		// Make an API request to get location coordinates with geoURL in order to use City, State, Country
 		fetch(geoUrl)
 			.then((response) => response.json())
 			.then((data) => {
@@ -49,7 +49,7 @@ $(document).ready(function () {
 							// Extract and display weather data by the hour
 							//structure to call icons
 							const weatherData = data.list;
-							//console.log(weatherData);
+							console.log(weatherData);
 
 							//console.log(weatherData[0].main.temp);
 							// Update the "weatherData" div with the data
@@ -64,14 +64,17 @@ $(document).ready(function () {
 								if (index % itemsToShow === 0) {
 									const { temp } = main;
 									const { icon } = weather[0];
+									const { description } = weather[0];
 
 									const weatherDayDiv = document.createElement("div");
 									const dateTime = document.createElement("p");
 									const tempDay = document.createElement("p");
 									const weatherIcon = document.createElement("img");
+									const weatherDesc = document.createElement("p")
 
 									weatherIcon.src = `${baseIconUrl}${icon}.png`;
 									tempDay.textContent = `${temp}° Fahrenheit`;
+									weatherDesc.textContent = `${description}`;
 
 									// Convert the dt_txt string to a Date object and format it
 									const date = new Date(dt_txt);
@@ -90,6 +93,7 @@ $(document).ready(function () {
 
 									weatherDayDiv.appendChild(dateTime);
 									weatherDayDiv.appendChild(weatherIcon);
+									weatherDayDiv.appendChild(weatherDesc)
 									weatherDayDiv.appendChild(tempDay);
 
 									weatherDataDiv.appendChild(weatherDayDiv); // Append to modal
@@ -107,22 +111,35 @@ $(document).ready(function () {
 								if (index % itemsToShow2 === 0) {
 									const { temp } = main;
 									const { icon } = weather[0];
+									const { humidity } = main;
 
 									const weatherDayDiv = document.createElement("div");
 									const dateTime = document.createElement("p");
 									const tempDay = document.createElement("p");
+									const tempDayC = document.createElement("p");
+									const humidDay = document.createElement("p");
 									const weatherIcon = document.createElement("img");
 
+									//convert temp from F to C
+									function fahrenheitToCelcius(fahrenheit){
+										return (fahrenheit - 32) * (5/9);
+									}
+
+									const tempFahrenheit = temp;
+									const tempCelcius = fahrenheitToCelcius(tempFahrenheit);
+
 									weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
-									tempDay.textContent = `${temp}° Fahrenheit`;
+									tempDay.textContent = `${tempFahrenheit}° Fahrenheit`;
+									tempDayC.textContent = `${tempCelcius.toFixed(2)}° Celcius`;
+									humidDay.textContent = `Humidity: ${humidity}%`;
 
 									const date = new Date(dt_txt);
 									const options = {
 										weekday: "short",
 										month: "short",
 										day: "numeric",
-										hour: "2-digit",
-										minute: "2-digit",
+										//hour: "2-digit",
+										//minute: "2-digit",
 										hour12: true,
 									};
 									const formattedDate = new Intl.DateTimeFormat(
@@ -134,7 +151,9 @@ $(document).ready(function () {
 
 									weatherDayDiv.appendChild(dateTime);
 									weatherDayDiv.appendChild(weatherIcon);
+									weatherDayDiv.appendChild(humidDay);
 									weatherDayDiv.appendChild(tempDay);
+									weatherDayDiv.appendChild(tempDayC);
 
 									secondWeatherDataDiv.appendChild(weatherDayDiv); // Append to the second location's weatherData div
 									updateMap(lat, lon);
@@ -156,10 +175,10 @@ $(document).ready(function () {
 			});
 	}
 
-	// Function to update the Leaflet map with weather data
+	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
 		if (!map) {
-			// Create the map and layers
+			// Create the map and layers from OpenWeather
 			map = L.map("weatherMap").setView([lat, lon], 10);
 			openStreetMapLayer = L.tileLayer(
 				"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -169,29 +188,82 @@ $(document).ready(function () {
 						'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 				}
 			).addTo(map);
-			precipitationLayer = L.tileLayer(
+			const precipitationLayer = L.tileLayer(
 				"https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
 				{
 					maxZoom: 15,
 					opacity: 1.0,
 				}
-			).addTo(map);
+			);
 
-			cloudLayer = L.tileLayer(
+			const cloudLayer = L.tileLayer(
 				"https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
 				{
 					maxZoom: 15,
-					opacity: 0.8,
+					opacity: 1.0,
 				}
-			).addTo(map);
+			);
 
-			temperatureLayer = L.tileLayer(
+			const temperatureLayer = L.tileLayer(
 				"https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
 				{
 					maxZoom: 15,
 					opacity: 0.3,
 				}
-			).addTo(map);
+			);
+
+			const windLayer = L.tileLayer(
+				"https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+				{
+					maxZoom: 15,
+					opacity: 1.0,
+				}
+			);
+
+			const pressureLayer = L.tileLayer(
+				"https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+				{
+					maxZoom: 15,
+					opacity: 0.5,
+				}
+			);
+
+			const weatherLayers = L.layerGroup([
+				precipitationLayer,
+				cloudLayer,
+				temperatureLayer,
+				windLayer,
+			]);
+
+			const precip = L.layerGroup([precipitationLayer]);
+			const clouds = L.layerGroup([cloudLayer]);
+			const temperature = L.layerGroup([temperatureLayer]);
+			const windL = L.layerGroup([windLayer]);
+			const pressureL = L.layerGroup([pressureLayer]);
+
+
+			const baseLayers = {
+				OpenStreetMap: openStreetMapLayer,
+				// Add other base layers if you have them
+			};
+
+			const overlayLayers = {
+				"All Weather Layers": weatherLayers,
+				Precipitation: precip,
+				Clouds: clouds,
+				Temperature: temperature,
+				Wind: windL,
+				Pressure: pressureL,
+
+				// Add more overlay layers as needed
+			};
+
+			L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+			map.on("baselayerchange", function (eventLayer) {
+				const selectedLater = eventLayer.name;
+				console.log("Selected Later: ${selectedLayer");
+			});
 
 			// Create a draggable marker with the custom icon and add it to the map.
 			marker = L.marker([lat, lon], {
@@ -234,10 +306,10 @@ $(document).ready(function () {
 		const weatherMapDiv = document.getElementById("weatherMap");
 		weatherMapDiv.style.display = "block";
 
-		const forecastbtn = document.getElementById("forecastbtn")
+		const forecastbtn = document.getElementById("forecastbtn");
 		forecastbtn.style.display = "block";
 
-		const wdata = document.getElementById("weatherData")
+		const wdata = document.getElementById("weatherData");
 		wdata.style.display = "block";
 	});
 });
