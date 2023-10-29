@@ -2,6 +2,9 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
+	//modal 
+	var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
 
 	//weather
 	//day and time
@@ -42,21 +45,26 @@ $(document).ready(function () {
 							const weatherData = data.list;
 							console.log(weatherData);
 							console.log(weatherData[0].main.temp);
+							//console.log(weatherData.dt_txt)
 							// Update the "weatherData" div with the data
 							const weatherDiv = document.getElementById("weatherData");
-							weatherData.forEach(function ({ main, weather }) {
+							weatherDiv.innerHTML = ""
+							weatherData.forEach(function ({ dt_txt, main, weather, i }) {
 								const { temp } = main;
 								const { icon } = weather[0];
 								const weatherDayDiv = document.createElement("div");
 								const tempDay = document.createElement("p");
 								const weatherIcon = document.createElement("img");
+								const dayTime = document.createElement("p")
 								weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
 								tempDay.textContent = temp;
+								dayTime.textContent = dt_txt;
+								console.log(dt_txt)
+								weatherDayDiv.appendChild(dayTime)
 								weatherDayDiv.appendChild(tempDay);
 								weatherDayDiv.appendChild(weatherIcon);
 								weatherDiv.appendChild(weatherDayDiv);
 							});
-							//add weather Icon
 						})
 						//error protection
 						.catch((error) => {
@@ -72,15 +80,20 @@ $(document).ready(function () {
 				console.error("Error fetching location data:", error);
 			});
 	}
+ // Initialize Materialize modals
+
+
 	// Add event listener to the button
 	document.getElementById("getSearch").addEventListener("click", getWeather);
+	
+	
+
 
 	var map = L.map("map").setView([51.505, -0.09], 13);
-
 	L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		maxZoom: 19,
 		attribution:
 			'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	}).addTo(map);
+	
 });
- 

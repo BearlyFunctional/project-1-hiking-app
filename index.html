@@ -30,44 +30,35 @@
         <p id="timeTitle">Today's Date and Time</p>
         <p id="currentDay" class="displayDateTime"></p>
         <div id="weatherData"></div>
-        <div id="weatherDate"></div>
-        <!--Weather Icons Container-->
-        <div id="weatherIconContainer">
-            <img id="weatherIcon" src="" alt="Weather Icon">
-        </div>
+        <!-- Button to trigger the modal -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#myModal">5-Day Weather</a>
     </section>
     <!--Search Results container-->
     <section class="search-container" id="results">Search Results Container
         <div class="mapContainer">
         <div id="map"></div>    
         </div>
-        
         <div class="results-list">Results List</div>
-        <ul>
-            <li>-</li>
-            <li>-</li>
-            <li>-</li>
-            <li>-</li>
-            <li>-</li>
-            <li>-</li>
-            <li>-</li>
-        </ul>
-
-
     </section>
 </div>
 
+<div id="myModal" class="modal">
+    <div class="modal-content">
+      <h4>Forecast</h4>
+      <p>5 Day Weather Forecast</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 <body>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!--add jquery and dayjs libraries for time and stying-->
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/script.js"></script>
 </body>
- 
 </html>
