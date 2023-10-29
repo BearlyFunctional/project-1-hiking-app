@@ -128,6 +128,7 @@ $(document).ready(function () {
 									const tempFahrenheit = temp;
 									const tempCelcius = fahrenheitToCelcius(tempFahrenheit);
 
+
 									weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
 									tempDay.textContent = `${tempFahrenheit}° Fahrenheit`;
 									tempDayC.textContent = `${tempCelcius.toFixed(2)}° Celcius`;
@@ -146,6 +147,8 @@ $(document).ready(function () {
 										"en-US",
 										options
 									).format(date);
+
+									
 
 									dateTime.textContent = formattedDate;
 
