@@ -35,17 +35,18 @@ header {
   align-items: center;
   width: 50%;
   border: solid 1px white;
-  color: #8e8e8e;
+  color:black;
   margin: 50px 0 0 10px;
-  height: 900px;
+  height: 1200px;
+  background-color: #8e8e8e;
 }
+
+
 
 .time-container{
   color:antiquewhite;
   font-size: 20px;
   font-weight: 400;
-  
-
 }
 
 #weather {
@@ -66,7 +67,6 @@ header {
   flex-direction: column;
   align-items: center;
   width: 45%;
- 
   border: solid 1px white;
   color: #8e8e8e;
   margin: 50px 10px 0 10px;
@@ -90,14 +90,14 @@ header img {
 #weatherData {
   display: flex;
   color: black;
+  font-weight: 800;
   text-align: center;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
   background-color: #8e8e8e;
   justify-content: center;
-  border: solid 2px white;
   border-radius: 5px;
-  justify-content: space-between;
+  padding: 20px;
 }
 
 .modal {
