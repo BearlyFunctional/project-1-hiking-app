@@ -1,23 +1,44 @@
 $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
-	const location = document.getElementById("locationInput").value;
+	var parksList = document.querySelector(".parksList")
+	var location = document.getElementById("locationInput").value;
+
+	// HB Search Results list
+	var npsParksList
+
 	var map;
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
 	
-	// National Park Service Lookup
+	// HB National Park Service Lookup
 	function searchParks(){
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
 		var npiQuery = 'stateCode=' + location
+		console.log(npiQuery)
 		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
 		console.log(npsUrl)
 		fetch(npsUrl)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
+				npsParksList = data.data
+				console.log(npsParksList)
+				populateNpsSearchResults()
 			})
+	}
+
+	function populateNpsSearchResults() {
+
+		console.log(npsParksList.length)
+		console.log(parksList)
+		
+		for (let i = 0; i < npsParksList.length; i++) {
+			const element = npsParksList[i];
+			console.log(npsParksList[i].name)
+			parksList.appendChild(document.createElement('li')).textContent = npsParksList[i].name
+		}
+		
 	}
 
 	//weather
@@ -37,7 +58,7 @@ $(document).ready(function () {
 	// Function to fetch and display weather data
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
-		const location = document.getElementById("locationInput").value;
+		location = document.getElementById("locationInput").value;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
 		const iconCode = "10d"; //temporary iconCode
@@ -339,6 +360,8 @@ $(document).ready(function () {
 	document.getElementById("getSearch").addEventListener("click", function () {
 		// Call the getWeather function
 		getWeather();
+
+		searchParks()
 
 		// Show the weather map
 		const weatherMapDiv = document.getElementById("weatherMap");
