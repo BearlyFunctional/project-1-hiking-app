@@ -6,7 +6,7 @@ $(document).ready(function () {
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
-	
+
 	//weather
 	//day and time
 	//display current date and time
@@ -27,7 +27,7 @@ $(document).ready(function () {
 		const location = document.getElementById("locationInput").value;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
-		const iconCode = "10d"; //temporary iconCode
+		//const iconCode = "10d"; //temporary iconCode
 		const baseIconUrl = "https://openweathermap.org/img/wn/"; //baseURL for icon
 		//const iconUrl = `${baseIconUrl}${iconCode}@2x.png`; //structure to call icons
 		// Make an API request to get location coordinates with geoURL in order to use City, State, Country
