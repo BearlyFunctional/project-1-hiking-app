@@ -30,10 +30,13 @@ header {
 }
   
 .weather-container {
+  display: flex;
+  flex-direction: column;
   width: 50%;
   border: solid 1px white;
   color: #8e8e8e;
   margin: 50px 0 0 10px;
+  align-items: center;
 }
 
 #weather {
@@ -76,6 +79,10 @@ header img {
 }
 
 #map { 
-  height: 250px; 
-  width: 250px;
+  height: 100%; 
+  width: 100%;
 } 
+
+.btn {
+  
+}
