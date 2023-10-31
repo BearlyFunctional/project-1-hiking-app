@@ -6,7 +6,7 @@ $(document).ready(function () {
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
-
+	
 	//weather
 	//day and time
 	//display current date and time
