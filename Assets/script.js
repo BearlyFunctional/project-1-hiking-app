@@ -3,6 +3,19 @@ $(document).ready(function () {
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	const location = document.getElementById("locationInput").value;
 
+	// National Park Service Lookup
+	function searchParks(){
+		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
+		var npiQuery = 'stateCode=' + location
+		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
+		console.log(npsUrl)
+		fetch(npsUrl)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data)
+			})
+	}
+
 	//weather
 	//day and time
 	//display current date and time
@@ -74,6 +87,7 @@ $(document).ready(function () {
 	}
 	// Add event listener to the button
 	document.getElementById("getSearch").addEventListener("click", getWeather);
+	document.getElementById("getSearch").addEventListener("click", searchParks);
 
 	var map = L.map("map").setView([51.505, -0.09], 13);
 
