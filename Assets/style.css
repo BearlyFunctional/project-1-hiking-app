@@ -1,12 +1,12 @@
 header {
     background-color: #4e4e4e;
-    color: black
-    ;
+    color: white;
     border-bottom: solid 1px #8e8e8e;
   }
   
 .title {
     text-align: center;
+  
 }
 
   body {
@@ -32,11 +32,23 @@ header {
 .weather-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 50%;
   border: solid 1px white;
-  color: #8e8e8e;
+  color:black;
   margin: 50px 0 0 10px;
-  align-items: center;
+  height: 1200px;
+  background-color: #8e8e8e;
+  border-radius: 15px;
+  
+}
+
+
+
+.time-container{
+  color:antiquewhite;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 #weather {
@@ -57,7 +69,6 @@ header {
   flex-direction: column;
   align-items: center;
   width: 45%;
-  height: 90vh;
   border: solid 1px white;
   color: #8e8e8e;
   margin: 50px 10px 0 10px;
@@ -72,17 +83,67 @@ header {
   border: solid 2px black;
   text-align: center;
   height: 250px;
+  border-radius: 10px;
 }
 
 header img {
   height: 45px;
 }
 
-#map { 
-  height: 100%; 
-  width: 100%;
-} 
+#weatherData {
+  display: flex;
+  color: black;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  align-items: center;
+  gap: 80px;
+  background-color: #8e8e8e;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 20px;
+  line-height: 15px;
+}
 
-.btn {
-  
+#weatherMap {
+  border-radius: 15px;
+}
+
+.modal {
+  background-color: #4e4e4e;
+  text-align: center;
+  color: antiquewhite;
+  line-height: 5px;
+  font-weight: 900;
+  width: 75%;
+  height: 40%;
+}
+
+#modalBtn{
+  color:white;
+  background-color: #8e8e8e;
+  border-radius: 5px;
+}
+
+#forecastbtn {
+  border-radius: 5px;
+  text-align: center;
+  height: 50px;
+  background-color: #6e6e6e;
+  border: solid 1px white;
+}
+
+
+#weatherMap {
+  width: 90%;
+  height: 80%;
+  margin-top: 25px;
+  border-radius: 15px;
+
+}
+
+.locationSearched {
+  color: white;
+  font-weight: 500;
+  font-size: 25px;
 }
