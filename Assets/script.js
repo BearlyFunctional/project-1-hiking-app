@@ -2,8 +2,9 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	var parksList = document.querySelector(".parksList")
-	var location = document.getElementById("locationInput").value;
-
+	const city = document.getElementById("cityInput").value;
+  	const state = document.getElementById("stateInput").value;
+  	const searchInput = `${city}, ${state} USA`;
 	// HB Search Results list
 	var npsParksList
 
@@ -58,7 +59,10 @@ $(document).ready(function () {
 	// Function to fetch and display weather data
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
-		location = document.getElementById("locationInput").value;
+		//location = document.getElementById("locationInput").value;
+		var city = document.getElementById("cityInput").value;
+		var state = document.getElementById("stateInput").value;
+		var location = `${city}, ${state} USA`;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
 		//const iconCode = "10d"; //temporary iconCode
