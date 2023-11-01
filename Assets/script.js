@@ -34,23 +34,14 @@ $(document).ready(function () {
 	}
 
 	function populateNpsSearchResults() {
-
-		console.log(npsParksList.length)
-		console.log(parksList)
-
 		parksList.innerHTML = ''
 		
 		for (let i = 0; i < npsParksList.length; i++) {
 			const element = npsParksList[i];
 			console.log(npsParksList[i].name)
 			parksList.appendChild(document.createElement('li')).appendChild(document.createElement('button')).textContent = npsParksList[i].name
-
-			// var latLon = npsParksList[i].latitude + ', ' + npsParksList[i].longitude
-
-			// console.log(latLon)
-			
-			// marker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
-			// }).addTo(map);
+			parksList.children[i].children[0].classList.add("parkButtons", "parkListNumber-" + i)
+			// parkListElement.classList.add("parkListNumber-" + i)
 		}
 		getWeather();
 	}
@@ -261,7 +252,11 @@ $(document).ready(function () {
 
 	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
-		if (!map) {
+
+		if (map) {
+			map.off();
+  			map.remove();
+		}
 			// Create the map and layers from OpenWeather
 			// base layer/map
 			map = L.map("weatherMap").setView([lat, lon], 10);
@@ -359,7 +354,6 @@ $(document).ready(function () {
 			  });
 
 			// Update the marker creation to use the custom icon
-			
 			marker = L.marker([lat, lon], {
 			draggable: true,
 			icon: customIcon,
@@ -372,7 +366,8 @@ $(document).ready(function () {
 	
 				console.log(latLon)
 				
-				marker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
+				parksMarker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
+					title: npsParksList[i].name
 				}).addTo(map);
 			}
 			
@@ -388,20 +383,7 @@ $(document).ready(function () {
 
 			// Add a tooltip to the marker.
 			marker.bindTooltip("Lat: " + lat + ", Lon: " + lon).openTooltip();
-		} else {
-			// Update the map's view.
-			map.setView([lat, lon]);
-
-			// Update the marker's position when moved
-			marker.setLatLng([lat, lon]);
-
-			// Update the marker's tooltip content when moved
-			var newLatLng = marker.getLatLng();
-			marker
-				.getTooltip()
-				.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
-			marker.openTooltip();
-		}
+		
 		console.log(map)
 	}
 
