@@ -58,7 +58,10 @@ header {
 
 .app-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  height: 100%;
+  align-items: center;
   
 }
   
@@ -66,17 +69,14 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 98%;
   border: solid 1px white;
   color:black;
-  margin: 50px 0 0 10px;
   height: 1200px;
   background-color: #8e8e8e;
   border-radius: 15px;
   
 }
-
-
 
 .time-container{
   color:antiquewhite;
@@ -112,7 +112,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 250px;
   border: solid 2px black;
   text-align: center;
   height: 250px;
@@ -180,3 +180,19 @@ header img {
   font-weight: 500;
   font-size: 25px;
 }
+
+.parks-container{
+display: flex;
+flex-direction: column;
+color:white;
+justify-content:center ;
+align-items: center;
+border: solid;
+width: 98%;
+border: solid 1px white;
+margin-top: 10px;
+
+background-color: #8e8e8e;
+border-radius: 15px;
+}
+

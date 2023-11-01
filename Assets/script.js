@@ -13,10 +13,14 @@ $(document).ready(function () {
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
 	
+
+	
 	// HB National Park Service Lookup
 	function searchParks(){
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
-		var npiQuery = 'stateCode=' + location
+		//var npiQuery = 'stateCode=' + location
+		//updated to stateInput.value from updated input box -RG
+		npiQuery = document.getElementById("stateInput").value;
 		console.log(npiQuery)
 		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
 		console.log(npsUrl)
@@ -56,6 +60,9 @@ $(document).ready(function () {
 	// update the current date and time every second
 	setInterval(updateCurrentTime, 1000);
 
+
+
+	
 	// Function to fetch and display weather data
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
@@ -220,20 +227,28 @@ $(document).ready(function () {
 								}
 							});
 						})
-						//error protection
-						.catch((error) => {
-							console.warn("Error fetching weather data:", error);
-						});
-				} else {
-					//error protection
-					console.warn("Location not found.");
-				}
-			})
-			//error protection
-			.catch((error) => {
-				console.error("Error fetching location data:", error);
-			});
-	}
+						  .catch((error) => {
+              // Display an error modal for weather data fetch errors
+              const errorModal = document.getElementById("errorModal");
+              const instance = M.Modal.init(errorModal, { dismissible: false });
+              instance.open();
+              console.warn("Error fetching weather data:", error);
+            });
+        } else {
+          // Display an error modal when the location is not found
+          const errorModal = document.getElementById("errorModal");
+          const instance = M.Modal.init(errorModal, { dismissible: false });
+          instance.open();
+        }
+      })
+      .catch((error) => {
+        // Display an error modal for other errors
+        const errorModal = document.getElementById("errorModal");
+        const instance = M.Modal.init(errorModal, { dismissible: false });
+        instance.open();
+        console.error("Error fetching location data:", error);
+      });
+  }
 
 	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
@@ -380,12 +395,8 @@ $(document).ready(function () {
 		wdata.style.display = "block";
 
 		// Get the input value from #locationInput
-		const locationInput = document.getElementById("locationInput").value;
-    
-		// Get the "locationSearched" div
-		const locationSearchedDiv = document.querySelector(".locationSearched");
-
-		// Update the content of the "locationSearched" div
-		locationSearchedDiv.innerHTML = `${locationInput}`;
+		var city = document.getElementById("cityInput").value;
+		var state = document.getElementById("stateInput").value;
+		var location = `${city}, ${state} USA`;
 	});
 });
