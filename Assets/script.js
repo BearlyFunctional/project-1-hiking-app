@@ -37,13 +37,22 @@ $(document).ready(function () {
 
 		console.log(npsParksList.length)
 		console.log(parksList)
+
+		parksList.innerHTML = ''
 		
 		for (let i = 0; i < npsParksList.length; i++) {
 			const element = npsParksList[i];
 			console.log(npsParksList[i].name)
-			parksList.appendChild(document.createElement('li')).textContent = npsParksList[i].name
+			parksList.appendChild(document.createElement('li')).appendChild(document.createElement('button')).textContent = npsParksList[i].name
+
+			// var latLon = npsParksList[i].latitude + ', ' + npsParksList[i].longitude
+
+			// console.log(latLon)
+			
+			// marker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
+			// }).addTo(map);
 		}
-		
+		getWeather();
 	}
 
 	//weather
@@ -343,10 +352,30 @@ $(document).ready(function () {
 				console.log("Selected Later: ${selectedLayer");
 			});
 
-			// Create a draggable marker and add it to the map.
+			const customIcon = L.icon({
+				iconUrl: './assets/home_5973800.png', // URL to your custom icon image
+				iconSize: [32, 32], // Size of the icon (width, height)
+				iconAnchor: [16, 32], // Anchor point of the icon (usually half of iconSize)
+			  });
+
+			// Update the marker creation to use the custom icon
+			
 			marker = L.marker([lat, lon], {
-				draggable: true, // Make the marker draggable
-			}).addTo(map);
+			draggable: true,
+			icon: customIcon,
+ 			 }).addTo(map);
+
+			for (let i = 0; i < npsParksList.length; i++) {
+				const element = npsParksList[i];
+	
+				var latLon = npsParksList[i].latitude + ', ' + npsParksList[i].longitude
+	
+				console.log(latLon)
+				
+				marker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
+				}).addTo(map);
+			}
+			
 
 			// Add a dragend event handler to update the marker's coordinates.
 			marker.on("dragend", function (event) {
@@ -373,13 +402,13 @@ $(document).ready(function () {
 				.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
 			marker.openTooltip();
 		}
+		console.log(map)
 	}
 
 	// Add an event listener to the "Search" button to fire the search
 	document.getElementById("getSearch").addEventListener("click", function () {
 		// Call the getWeather function
-		getWeather();
-
+		
 		searchParks()
 
 		// Show the weather map
