@@ -34,18 +34,16 @@ $(document).ready(function () {
 	}
 
 	function populateNpsSearchResults() {
-
-		console.log(npsParksList.length)
-		console.log(parksList)
-		
 		parksList.innerHTML = ''
-
+		
 		for (let i = 0; i < npsParksList.length; i++) {
 			const element = npsParksList[i];
 			console.log(npsParksList[i].name)
-			parksList.appendChild(document.createElement('li')).textContent = npsParksList[i].name
+			parksList.appendChild(document.createElement('li')).appendChild(document.createElement('button')).textContent = npsParksList[i].name
+			parksList.children[i].children[0].classList.add("parkButtons", "parkListNumber-" + i)
+			// parkListElement.classList.add("parkListNumber-" + i)
 		}
-		
+		getWeather();
 	}
 
 	//weather
@@ -254,7 +252,11 @@ $(document).ready(function () {
 
 	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
-		if (!map) {
+
+		if (map) {
+			map.off();
+  			map.remove();
+		}
 			// Create the map and layers from OpenWeather
 			// base layer/map
 			map = L.map("weatherMap").setView([lat, lon], 10);
@@ -320,7 +322,6 @@ $(document).ready(function () {
 			const temperature = L.layerGroup([temperatureLayer]);
 			const windL = L.layerGroup([windLayer]);
 			const pressureL = L.layerGroup([pressureLayer]);
-			
 
 
 			const baseLayers = {
@@ -358,6 +359,19 @@ $(document).ready(function () {
 			icon: customIcon,
  			 }).addTo(map);
 
+			for (let i = 0; i < npsParksList.length; i++) {
+				const element = npsParksList[i];
+	
+				var latLon = npsParksList[i].latitude + ', ' + npsParksList[i].longitude
+	
+				console.log(latLon)
+				
+				parksMarker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
+					title: npsParksList[i].name
+				}).addTo(map);
+			}
+			
+
 			// Add a dragend event handler to update the marker's coordinates.
 			marker.on("dragend", function (event) {
 				var newLatLng = event.target.getLatLng();
@@ -369,27 +383,14 @@ $(document).ready(function () {
 
 			// Add a tooltip to the marker.
 			marker.bindTooltip("Lat: " + lat + ", Lon: " + lon).openTooltip();
-		} else {
-			// Update the map's view.
-			map.setView([lat, lon]);
-
-			// Update the marker's position when moved
-			marker.setLatLng([lat, lon]);
-
-			// Update the marker's tooltip content when moved
-			var newLatLng = marker.getLatLng();
-			marker
-				.getTooltip()
-				.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
-			marker.openTooltip();
-		}
+		
+		console.log(map)
 	}
 
 	// Add an event listener to the "Search" button to fire the search
 	document.getElementById("getSearch").addEventListener("click", function () {
 		// Call the getWeather function
-		getWeather();
-
+		
 		searchParks()
 
 		// Show the weather map
