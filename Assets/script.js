@@ -20,7 +20,7 @@ $(document).ready(function () {
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
 		//var npiQuery = 'stateCode=' + location
 		//updated to stateInput.value from updated input box -RG
-		npiQuery = document.getElementById("stateInput").value;
+		npiQuery = 'stateCode=' + document.getElementById("stateInput").value;
 		console.log(npiQuery)
 		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
 		console.log(npsUrl)
