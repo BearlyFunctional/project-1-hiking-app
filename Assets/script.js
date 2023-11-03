@@ -2,11 +2,11 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	var parksList = document.querySelector(".parksList")
-	//const city = document.getElementById("cityInput").value;
-  	//const state = document.getElementById("stateInput").value;
-  	//const searchInput = `${city}, ${state} USA`;
-	
-
+	var parkInfoCont = document.querySelector(".parkInfo")
+	const city = document.getElementById("cityInput").value;
+  	const state = document.getElementById("stateInput").value;
+	var parksBttns
+  	const searchInput = `${city}, ${state} USA`;
 	// HB Search Results list
 	var npsParksList
 
@@ -16,7 +16,6 @@ $(document).ready(function () {
 	var instances = M.Modal.init(elems);
 
 	
-
 	// HB National Park Service Lookup
 	function searchParks(){
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
@@ -45,8 +44,33 @@ $(document).ready(function () {
 			parksList.children[i].children[0].classList.add("parkButtons", "parkListNumber-" + i)
 			// parkListElement.classList.add("parkListNumber-" + i)
 		}
+
+		parksList.scrollIntoView({
+			behavior: 'smooth'
+		})
+
+		parksBttns = document.getElementsByClassName(".parkButtons")
+
+		
 		getWeather();
 	}
+
+	function getParkInfo() {
+		if (event.target.classList.contains('parkButtons')) {
+			var selectedPark = event.target.classList[1]
+			selectedPark = selectedPark.substring(selectedPark.indexOf("-") + 1)
+			console.log(npsParksList[selectedPark])
+
+			parkInfoCont.innerHTML = ''
+			parkInfoCont.appendChild(document.createElement('h4')).textContent = npsParksList[selectedPark].description
+			map.panTo([npsParksList[selectedPark].latitude, npsParksList[selectedPark].longitude], 10)
+			parkInfoCont.scrollIntoView({
+				behavior: 'smooth'
+			})
+
+		}
+	}
+
 	//weather
 	//day and time
 	//display current date and time
@@ -387,6 +411,8 @@ $(document).ready(function () {
 		
 		console.log(map)
 	}
+	
+	addEventListener("click", getParkInfo)
 
 	// Add an event listener to the "Search" button to fire the search
 	document.getElementById("getSearch").addEventListener("click", function () {
@@ -405,6 +431,8 @@ $(document).ready(function () {
 		//show the weatherdata
 		const wdata = document.getElementById("weatherData");
 		wdata.style.display = "block";
+
+		parkInfoCont.style.display = "block"
 
 		// Get the input value from #locationInput
 		var city = document.getElementById("cityInput").value;
