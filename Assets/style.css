@@ -154,10 +154,6 @@ header svg {
   line-height: 15px;
 }
 
-#weatherMap {
-  border-radius: 15px;
-}
-
 .modal {
   background-color: #EEEBDA;
   text-align: center;
@@ -188,7 +184,7 @@ header svg {
 #weatherMap {
   width: 90%;
   height: 80%;
-  margin-top: 25px;
+  margin-block: 25px;
   border-radius: 15px;
 
 }
@@ -214,3 +210,18 @@ background-color: #6A574D;
 border-radius: 15px;
 }
 
+.weather\/parkInfo {
+  display: flex;
+  width: 90%;
+  gap: 20px;
+} .weatherInfo {
+  width: 35%;
+} .parkInfo {
+  display: none;
+  width: 65%;
+  background-color: #C7B29E;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 20px;
+  line-height: 15px;
+}
