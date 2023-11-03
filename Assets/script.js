@@ -12,9 +12,8 @@ $(document).ready(function () {
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
-	
 
-	
+
 	// HB National Park Service Lookup
 	function searchParks(){
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
@@ -45,7 +44,6 @@ $(document).ready(function () {
 		}
 		getWeather();
 	}
-
 	//weather
 	//day and time
 	//display current date and time
@@ -409,6 +407,10 @@ $(document).ready(function () {
 		var city = document.getElementById("cityInput").value;
 		var state = document.getElementById("stateInput").value;
 		var location = `${city}, ${state} USA`;
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('select');
+			var instances = M.FormSelect.init(elems);
+		});
 	});
-	
 });
