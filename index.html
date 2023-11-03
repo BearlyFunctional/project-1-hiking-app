@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiking App 1.0</title>
+    <title>Empathic America</title>
     <!--link to fontawesone and materialize for css frameworks-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -15,68 +15,75 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 
-<header>
-    <h1 class="title">U.S. H<span><img src="./assets/hiking.png" alt=""></span>king App 2.0</h1>
-    <!---location by city, state, country-->
-    <section class="searchInputs">
-        <input type="text" id="cityInput" placeholder="City">
-        <input type="text" id="stateInput" placeholder="State" maxlength="2">
-    <!---seach button-->
-    <button id="getSearch">Search</button>
-    </section>
-</header>
-<!--Main Container-->
-<div class="app-container" id="main">
-    <!--Begin Weather Section-->
-    <section class="weather-container" id="weather"><h4>Weather</h4>
-        <div class="time-container">
-            <p id="timeTitle">Today's Date and Time</p>
-            <p id="currentDay" class="displayDateTime"></p>
-        </div>
-        <div class="locationSearched"></div>
-        
-        <div id="weatherData" style="display: none;"></div>
-        <!-- Button to trigger the modal -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#weatherModal" style="display:none" id="forecastbtn">5-Day Weather</a>
-        <div id="weatherMap" style="display: none"></div>
-    </section>
-
-    <section class="parks-container" id="parks">
-        <h3>Parks</h3>
-        <ul class="parksList">
-        </ul>
-    </section>
-    
-    
-
-
-
-    <div id="weatherModal" class="modal">
-        <div class="modal-content">
-            <h4>Forecast</h4>
-            <p>5 Day Weather Forecast</p>
-            <div class="locationSearched"></div>
-            <div class= "wclass" id="weatherData"></div>
-        </div>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalBtn">Close</a>
-    </div>
-
-    <div id="errorModal" class="modal">
-        <div class="modal-content">
-            <h4>Error</h4>
-            <p>An error occurred. Please check your input and try again.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-        </div>
-    </div>
-</div>
 <body>
+
+    <header>
+        <h1 class="title">Empath<span><svg class="svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m280-40 123-622q6-29 27-43.5t44-14.5q23 0 42.5 10t31.5 30l40 64q18 29 46.5 52.5T700-529v-71h60v560h-60v-406q-48-11-89-35t-71-59l-24 120 84 80v300h-80v-240l-84-80-72 320h-84Zm17-395-85-16q-16-3-25-16.5t-6-30.5l30-157q6-32 34-50.5t60-12.5l46 9-54 274Zm243-305q-33 0-56.5-23.5T460-820q0-33 23.5-56.5T540-900q33 0 56.5 23.5T620-820q0 33-23.5 56.5T540-740Z"/></svg></span>c America</h1>
+        <!---location by city, state, country-->
+        <section class="searchInputs">
+            <input type="text" id="cityInput" placeholder="City">
+            <input type="text" id="stateInput" placeholder="State" maxlength="2">
+            <!---seach button-->
+            <button class="get-search" id="getSearch">Search</button>
+        </section>
+    </header>
+    <!--Main Container-->
+    <div class="app-container" id="main">
+        <!--Begin Weather Section-->
+        <section class="weather-container" id="weather">
+            <h4>Weather</h4>
+            <div class="time-container">
+                <p id="timeTitle">Today's Date and Time</p>
+                <p id="currentDay" class="displayDateTime"></p>
+            </div>
+            <div class="locationSearched"></div>
+
+            <div id="weatherData" style="display: none;"></div>
+            <!-- Button to trigger the modal -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#weatherModal" style="display:none"
+                id="forecastbtn">5-Day Weather</a>
+            <div id="weatherMap" style="display: none"></div>
+        </section>
+
+        <section class="parks-container" id="parks">
+            <h3>Parks</h3>
+            <ul class="parksList">
+            </ul>
+        </section>
+
+
+
+
+
+        <div id="weatherModal" class="modal">
+            <div class="modal-content">
+                <h4>Forecast</h4>
+                <p>5 Day Weather Forecast</p>
+                <div class="locationSearched"></div>
+                <div class="wclass" id="weatherData"></div>
+            </div>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalBtn">Close</a>
+        </div>
+
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <h4>Error</h4>
+                <p>An error occurred. Please check your input and try again.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    
     <!--leaflet API-->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!--Materialize CSS Framework-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!--add jquery and dayjs libraries for time and stying-->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
