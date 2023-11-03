@@ -84,7 +84,7 @@ $(document).ready(function () {
 					const { lat, lon } = data[0]; // Extract coordinates
 					// Use the coordinates to fetch weather data
 					const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=imperial`;
-
+				
 					// Make an API request to get weather data
 					//updateMap(lat, lon);
 
@@ -408,6 +408,22 @@ $(document).ready(function () {
 		// Get the input value from #locationInput
 		var city = document.getElementById("cityInput").value;
 		var state = document.getElementById("stateInput").value;
+	
+		if (state = "" ) {
+			//errormodal code
+			console.log(error)
+			console.log ('hello')
+		}
+
+		if (city = "" ) {
+			//errormodal code
+			console.log(error)
+			console.log ("hello")
+	
+		}
+
+		
+		// https://developer.nps.gov/api/v1/parks?stateCode=&api_key=47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW
 		var location = `${city}, ${state} USA`;
 	});
 });
