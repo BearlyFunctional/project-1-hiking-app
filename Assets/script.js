@@ -2,9 +2,11 @@ $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	var parksList = document.querySelector(".parksList")
-	const city = document.getElementById("cityInput").value;
-  	const state = document.getElementById("stateInput").value;
-  	const searchInput = `${city}, ${state} USA`;
+	//const city = document.getElementById("cityInput").value;
+  	//const state = document.getElementById("stateInput").value;
+  	//const searchInput = `${city}, ${state} USA`;
+	
+
 	// HB Search Results list
 	var npsParksList
 
@@ -13,6 +15,7 @@ $(document).ready(function () {
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
 
+	
 
 	// HB National Park Service Lookup
 	function searchParks(){
