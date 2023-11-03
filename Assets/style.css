@@ -41,13 +41,13 @@
 }
 
 #stateInput {
-  width: 5%;
-  border: solid 1px;
+  width: auto; /* Let the width be determined by the content */
+  padding: 10px; /* Add padding for better spacing and appearance */
   background-color: #EEEBDA;
   margin: 10px;
   font-size: 20px;
   color: #2C4742;
-  border-color: white;
+  border: none; /* Remove border */
   border-radius: 5px;
   text-align: center;
 }
