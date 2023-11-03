@@ -410,4 +410,5 @@ $(document).ready(function () {
 		var state = document.getElementById("stateInput").value;
 		var location = `${city}, ${state} USA`;
 	});
+	
 });
