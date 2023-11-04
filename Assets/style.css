@@ -15,14 +15,13 @@
 
   .autocomplete-container {
     position: relative;
-    width: 25%; /* Let the width be determined by the content */
+    width: 40%; /* Let the width be determined by the content */
     padding: 10px; /* Add padding for better spacing and appearance */
     background-color: #EEEBDA;
     margin: 10px;
     color: #2C4742;
     border: none; /* Remove border */
     border-radius: 5px
-    
 }
 
 .inputElement {
@@ -133,15 +132,18 @@
 
 #weather {
   text-align: left;
+  color: white;
 }
 
 #timeTitle {
   text-align: center;
+  color: white;
   }
 
 .displayDateTime {
   text-align: center;
   margin-top: -15px;
+  color: white;
 }
 
 .search-container {
@@ -189,6 +191,7 @@ header svg {
   line-height: 15px;
 }
 
+
 .modal {
   background-color: #EEEBDA;
   text-align: center;
@@ -196,7 +199,17 @@ header svg {
   line-height: 5px;
   font-weight: 900;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+
+.errormodal {
+  background-color: #EEEBDA;
+  text-align: center;
+  color: antiquewhite;
+  line-height: 5px;
+  font-weight: 900;
+  width: 50%;
+  height: auto;
 }
 
 #modalBtn{
