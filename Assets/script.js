@@ -3,6 +3,7 @@ $(document).ready(function () {
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
 	var parksList = document.querySelector(".parksList")
 	var parkInfoCont = document.querySelector(".parkInfo")
+	
 	const city = document.getElementById("cityInput").value;
   	const state = document.getElementById("stateInput").value;
 	var parksBttns
@@ -15,16 +16,53 @@ $(document).ready(function () {
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
 
+//autocomplete parameters geoapify
+const autocompleteInput = new autocomplete.GeocoderAutocomplete(
+		document.getElementById("autocomplete"), 
+		'e4e0693452684c4b936fd96cda49f1dc', 
+		{
+		type: 'city',
+		lang: 'en',
+		limit: 8,
+		skipIcons: true,
+		placeholder: 'City, State',
+		filter: 'us',
+	});
+
+	const autocompleteDiv = document.getElementById('autocomplete');
+	console.log(autocompleteDiv)
+	// Find the input element within the parent div using querySelector
+	const inputElement = autocompleteDiv.querySelector('.geoapify-autocomplete-input');
+	console.log(inputElement)
+	// Access the input value
+	const inputValue = inputElement.value;
+	console.log(inputValue)
+	
+	inputElement.addEventListener('focus', function () {
+		const inputValue = inputElement.value;
+		const [city, state, country] = inputValue.split(', ');
+		console.log('City:', city);
+		console.log('State:', state);
+		console.log('Country:', country);
+	  });	
+
 
 	// HB National Park Service Lookup
 	function searchParks(){
 		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
+		const inputValue = inputElement.value;
+		const [city, state, country] = inputValue.split(', ');
 		//var npiQuery = 'stateCode=' + location
 		//updated to stateInput.value from updated input box -RG
-		npiQuery = 'stateCode=' + document.getElementById("stateInput").value;
-		console.log(npiQuery)
+		const npiQuery = 'stateCode=' + state;
+		console.log('City:', city);
+		console.log('State:', state);
+		console.log('Country:', country);
+		console.log(npiQuery);
+
 		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
-		console.log(npsUrl)
+		//console.log(npsUrl)
+
 		fetch(npsUrl)
 			.then((response) => response.json())
 			.then((data) => {
@@ -92,8 +130,8 @@ $(document).ready(function () {
 	function getWeather() {
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
 		//location = document.getElementById("locationInput").value;
-		var city = document.getElementById("cityInput").value;
-		var state = document.getElementById("stateInput").value;
+		const inputValue = inputElement.value;
+		const [city, state] = inputValue.split(', ');
 		var location = `${city}, ${state} USA`;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
