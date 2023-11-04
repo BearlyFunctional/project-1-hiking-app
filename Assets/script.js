@@ -442,11 +442,11 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	}
 	
 	addEventListener("click", getParkInfo)
-
-
+	
+	
 	const inputElement = document.querySelector('.geoapify-autocomplete-input'); // Select by class
 	//inputElement.value = 'New York, NY, United States of America'; // Set the default value
-
+	
 	function handleDoubleClick() {
 		const inputValue = inputElement.value;
 		if (inputValue) {
@@ -454,45 +454,53 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 			console.log('City:', city);
 			console.log('State:', state);
 			console.log('Country:', country);
-	
+			
 			if (country !== "United States of America") {
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
 				return;
 			}
-	
+			
 			// Call the searchParks function here
 			searchParks();
-
-		// Show the weather map
-		const weatherMapDiv = document.getElementById("weatherMap");
-		weatherMapDiv.style.display = "block";
-
-		//show the 5 day forecast modal button
-		const forecastbtn = document.getElementById("forecastbtn");
-		forecastbtn.style.display = "block";
-
-		//show the weatherdata
-		const wdata = document.getElementById("weatherData");
-		wdata.style.display = "block";
-
-		parkInfoCont.style.display = "block"
-		
-	
+			
+			// Show the weather map
+			const weatherMapDiv = document.getElementById("weatherMap");
+			weatherMapDiv.style.display = "block";
+			
+			//show the 5 day forecast modal button
+			const forecastbtn = document.getElementById("forecastbtn");
+			forecastbtn.style.display = "block";
+			
+			//show the weatherdata
+			const wdata = document.getElementById("weatherData");
+			wdata.style.display = "block";
+			
+			parkInfoCont.style.display = "block"
 		}
 	};
+
+	// Event Lisnters do display Search Results
 	inputElement.addEventListener('dblclick', handleDoubleClick);
+	inputElement.addEventListener('keydown', function(event) {
+		if (event.key === 'Enter') {
+		  searchParks(), getParkInfo(), getWeather();
+		  const weatherMapDiv = document.getElementById("weatherMap");
+		  weatherMapDiv.style.display = "block";
+		  
+		  //show the 5 day forecast modal button
+		  const forecastbtn = document.getElementById("forecastbtn");
+		  forecastbtn.style.display = "block";
+		  
+		  //show the weatherdata
+		  const wdata = document.getElementById("weatherData");
+		  wdata.style.display = "block";
+		  
+		  parkInfoCont.style.display = "block"
+		}
 });
-
-
-
-
-
-
-
-
-
+});
 
 	// Add an event listener to the "Search" button to fire the search
 	//document.getElementById("getSearch").addEventListener("click", function () {
