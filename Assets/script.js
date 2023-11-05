@@ -518,6 +518,3 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		//	instance.open();
 		//	return;
 		//}
-
-
-		
