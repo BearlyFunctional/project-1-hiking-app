@@ -1,25 +1,25 @@
 $(document).ready(function () {
 	const currentDayElement = $("#currentDay");
 	const currentTime = dayjs().format("dddd, MMMM D, YYYY h:mm:ss A"); //format of time
-	var parksList = document.querySelector(".parksList")
-	var parkInfoCont = document.querySelector(".parkInfo")
-	
-	const city = document.getElementById("cityInput").value;
-  	const state = document.getElementById("stateInput").value;
-	var parksBttns
-  	//const searchInput = `${city}, ${state} USA`;
+	var parksList = document.querySelector(".parksList");
+	var parkInfoCont = document.querySelector(".parkInfo");
+	// Input element for search
+	//const city = document.getElementById("cityInput").value;
+	//const state = document.getElementById("stateInput").value;
+	var parksBttns;
+	//const searchInput = `${city}, ${state} USA`;
 	// HB Search Results list
-	var npsParksList
+	var npsParksList;
 
 	var map;
 	//modal
 	var elems = document.querySelectorAll(".modal");
 	var instances = M.Modal.init(elems);
 
-//autocomplete parameters geoapify
-const autocompleteInput = new autocomplete.GeocoderAutocomplete(
-		document.getElementById("autocomplete"), 
-		'e4e0693452684c4b936fd96cda49f1dc', 
+	//autocomplete parameters geoapify
+	const autocompleteInput = new autocomplete.GeocoderAutocomplete(
+		document.getElementById("autocomplete"),
+		"e4e0693452684c4b936fd96cda49f1dc",
 		{
 		type: 'city',
 		lang: 'en',
@@ -39,72 +39,80 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	// Access the input value
 	//const inputValue = inputElement.value;
 	//console.log(inputValue)
-	
-	
+
 	// HB National Park Service Lookup
-	function searchParks(){
-		var npsApiKey = '47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW'
+	function searchParks() {
+		var npsApiKey = "47lrzwNIGkA2VkzPNKaMqFeLUeXppVFFyeVjFPfW";
 		const inputValue = inputElement.value;
-		const [city, state, country] = inputValue.split(', ');
+		const [city, state, country] = inputValue.split(", ");
 		//var npiQuery = 'stateCode=' + location
 		//updated to stateInput.value from updated input box -RG
-		const npiQuery = 'stateCode=' + state;
+		const npiQuery = "stateCode=" + state;
 		//console.log('City:', city);
 		//console.log('State:', state);
 		//console.log('Country:', country);
 		//console.log(npiQuery);
 
-		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`
+		var npsUrl = `https://developer.nps.gov/api/v1/parks?${npiQuery}&api_key=${npsApiKey}`;
 		//console.log(npsUrl)
 
 		fetch(npsUrl)
 			.then((response) => response.json())
 			.then((data) => {
-				npsParksList = data.data
-				console.log(npsParksList)
-				populateNpsSearchResults()
-			})
+				npsParksList = data.data;
+				console.log(npsParksList);
+				populateNpsSearchResults();
+			});
 	}
 
 	function populateNpsSearchResults() {
-		parksList.innerHTML = ''
-		
+		parksList.innerHTML = "";
+
 		for (let i = 0; i < npsParksList.length; i++) {
 			const element = npsParksList[i];
-			console.log(npsParksList[i].name)
-			parksList.appendChild(document.createElement('li')).appendChild(document.createElement('button')).textContent = npsParksList[i].name
-			parksList.children[i].children[0].classList.add("parkButtons", "parkListNumber-" + i)
+			console.log(npsParksList[i].name);
+			parksList
+				.appendChild(document.createElement("li"))
+				.appendChild(document.createElement("button")).textContent =
+				npsParksList[i].name;
+			parksList.children[i].children[0].classList.add(
+				"parkButtons",
+				"parkListNumber-" + i
+			);
 			// parkListElement.classList.add("parkListNumber-" + i)
 		}
 
 		parksList.scrollIntoView({
-			behavior: 'smooth'
-		})
+			behavior: "smooth",
+		});
 
-		parksBttns = document.getElementsByClassName(".parkButtons")
+		parksBttns = document.getElementsByClassName(".parkButtons");
 
-		
 		getWeather();
 	}
 
 	function getParkInfo() {
-		if (event.target.classList.contains('parkButtons')) {
-			var selectedPark = event.target.classList[1]
-			selectedPark = selectedPark.substring(selectedPark.indexOf("-") + 1)
-			console.log(npsParksList[selectedPark])
+		if (event.target.classList.contains("parkButtons")) {
+			var selectedPark = event.target.classList[1];
+			selectedPark = selectedPark.substring(selectedPark.indexOf("-") + 1);
+			console.log(npsParksList[selectedPark]);
 
-			parkInfoCont.innerHTML = ''
-			parkInfoCont.appendChild(document.createElement('h4')).textContent = npsParksList[selectedPark].description
-			map.panTo([npsParksList[selectedPark].latitude, npsParksList[selectedPark].longitude], 10)
+			parkInfoCont.innerHTML = "";
+			parkInfoCont.appendChild(document.createElement("h4")).textContent =
+				npsParksList[selectedPark].description;
+			map.panTo(
+				[
+					npsParksList[selectedPark].latitude,
+					npsParksList[selectedPark].longitude,
+				],
+				10
+			);
 			parkInfoCont.scrollIntoView({
-				behavior: 'smooth'
-			})
-
+				behavior: "smooth",
+			});
 		}
 	}
 
-	//weather
-	//day and time
 	//display current date and time
 	currentDayElement.text(currentTime);
 	//update time function
@@ -122,7 +130,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		const weatherApiKey = "661e7eff94c386fb32110da5f695f39b";
 		//location = document.getElementById("locationInput").value;
 		const inputValue = inputElement.value;
-		const [city, state] = inputValue.split(', ');
+		const [city, state] = inputValue.split(", ");
 		var location = `${city}, ${state} USA`;
 		const limit = 1;
 		const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=${limit}&appid=${weatherApiKey}`;
@@ -158,30 +166,31 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 							const weatherDataDiv = modal.querySelector("#weatherData");
 							weatherDataDiv.innerHTML = "";
 
-							weatherData.forEach(function ({ dt_txt, main, weather, wind }, index) {
+							weatherData.forEach(function (
+								{ dt_txt, main, weather, wind },
+								index
+							) {
 								if (index % itemsToShow === 0) {
 									const { temp } = main;
 									const { icon } = weather[0];
 									const { description } = weather[0];
 									const { humidity } = main;
 									const { speed } = wind;
-									
 
 									const weatherDayDiv = document.createElement("div");
 									const dateTime = document.createElement("p");
 									const tempDay = document.createElement("p");
 									const weatherIcon = document.createElement("img");
-									const weatherDesc = document.createElement("p")
+									const weatherDesc = document.createElement("p");
 									const humidDay = document.createElement("p");
-									const windSpeed = document.createElement("p")
-									
+									const windSpeed = document.createElement("p");
 
 									weatherIcon.src = `${baseIconUrl}${icon}.png`;
 									tempDay.textContent = `${temp}° F`;
 									humidDay.textContent = `Humidity: ${humidity}%`;
 									windSpeed.textContent = `Wind: ${speed} mph`;
 									weatherDesc.textContent = `${description}`;
-									
+
 									// Convert the dt_txt string to a Date object and format it
 									const date = new Date(dt_txt);
 									const options = {
@@ -214,27 +223,30 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 							secondWeatherDataDiv.innerHTML = "";
 
 							// Append the elements to main page weatherData div
-							weatherData.forEach(function ({ dt_txt, main, weather, wind, }, index) {
+							weatherData.forEach(function (
+								{ dt_txt, main, weather, wind },
+								index
+							) {
 								if (index % itemsToShow2 === 0) {
 									const { temp } = main;
 									const { icon } = weather[0];
 									const { description } = weather[0];
 									const { humidity } = main;
 									const { speed } = wind;
-									
+
 									//create elements
 									const weatherDayDiv = document.createElement("div");
 									const dateTime = document.createElement("p");
 									const tempDay = document.createElement("p");
 									const tempDayC = document.createElement("p");
 									const humidDay = document.createElement("p");
-									const windSpeed = document.createElement("p")
+									const windSpeed = document.createElement("p");
 									const weatherIcon = document.createElement("img");
-									const weatherDesc = document.createElement("p")
+									const weatherDesc = document.createElement("p");
 
 									//convert temp from F to C
-									function fahrenheitToCelcius(fahrenheit){
-										return (fahrenheit - 32) * (5/9);
+									function fahrenheitToCelcius(fahrenheit) {
+										return (fahrenheit - 32) * (5 / 9);
 									}
 									//declare temp conversion variables
 									const tempFahrenheit = temp;
@@ -242,7 +254,9 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 
 									//content from array to append
 									weatherIcon.src = `${baseIconUrl}${icon}@2x.png`;
-									tempDay.textContent = `${tempFahrenheit}° F /  ${tempCelcius.toFixed(2)}° C`;
+									tempDay.textContent = `${tempFahrenheit}° F /  ${tempCelcius.toFixed(
+										2
+									)}° C`;
 									//tempDayC.textContent = `${tempCelcius.toFixed(2)}° C`;
 									humidDay.textContent = `Humidity: ${humidity}%`;
 									windSpeed.textContent = `Wind: ${speed} mph`;
@@ -274,7 +288,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 									weatherDayDiv.appendChild(windSpeed);
 									weatherDayDiv.appendChild(tempDay);
 									weatherDayDiv.appendChild(tempDayC);
-									
+
 									secondWeatherDataDiv.appendChild(weatherDayDiv); // Append to the second location's weatherData div
 									updateMap(lat, lon);
 								}
@@ -305,201 +319,190 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 
 	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
-
 		if (map) {
 			map.off();
-  			map.remove();
+			map.remove();
 		}
-			// Create the map and layers from OpenWeather
-			// base layer/map
-			map = L.map("weatherMap").setView([lat, lon], 8);
-			openStreetMapLayer = L.tileLayer(
-				"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-				{
-					maxZoom: 15,
-					attribution:
-						'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-				}
-			).addTo(map);
-			//weather layer precipitation
-			const precipitationLayer = L.tileLayer(
-				"https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
-				{
-					maxZoom: 15,
-					opacity: 1.0,
-				}
-			);
-			//weather layer clouds
-			const cloudLayer = L.tileLayer(
-				"https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
-				{
-					maxZoom: 15,
-					opacity: 1.0,
-				}
-			);
-			//weather layer temperature/heatmap
-			const temperatureLayer = L.tileLayer(
-				"https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
-				{
-					maxZoom: 15,
-					opacity: 0.3,
-				}
-			);
-			//weather layer wind
-			const windLayer = L.tileLayer(
-				"https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
-				{
-					maxZoom: 15,
-					opacity: 1.0,
-				}
-			);
-			//weather layer pressure
-			const pressureLayer = L.tileLayer(
-				"https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
-				{
-					maxZoom: 15,
-					opacity: 0.5,
-				}
-			);
-			
-			//declare variables to display layer options 
-			const weatherLayers = L.layerGroup([
-				precipitationLayer,
-				cloudLayer,
-				temperatureLayer,
-				windLayer,
-			]);
+		// Create the map and layers from OpenWeather
+		// base layer/map
+		map = L.map("weatherMap").setView([lat, lon], 8);
+		openStreetMapLayer = L.tileLayer(
+			"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+			{
+				maxZoom: 15,
+				attribution:
+					'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+			}
+		).addTo(map);
+		//weather layer precipitation
+		const precipitationLayer = L.tileLayer(
+			"https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+			{
+				maxZoom: 15,
+				opacity: 1.0,
+			}
+		);
+		//weather layer clouds
+		const cloudLayer = L.tileLayer(
+			"https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+			{
+				maxZoom: 15,
+				opacity: 1.0,
+			}
+		);
+		//weather layer temperature/heatmap
+		const temperatureLayer = L.tileLayer(
+			"https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+			{
+				maxZoom: 15,
+				opacity: 0.3,
+			}
+		);
+		//weather layer wind
+		const windLayer = L.tileLayer(
+			"https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+			{
+				maxZoom: 15,
+				opacity: 1.0,
+			}
+		);
+		//weather layer pressure
+		const pressureLayer = L.tileLayer(
+			"https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=661e7eff94c386fb32110da5f695f39b",
+			{
+				maxZoom: 15,
+				opacity: 0.5,
+			}
+		);
 
-			const precip = L.layerGroup([precipitationLayer]);
-			const clouds = L.layerGroup([cloudLayer]);
-			const temperature = L.layerGroup([temperatureLayer]);
-			const windL = L.layerGroup([windLayer]);
-			const pressureL = L.layerGroup([pressureLayer]);
+		//declare variables to display layer options
+		const weatherLayers = L.layerGroup([
+			precipitationLayer,
+			cloudLayer,
+			temperatureLayer,
+			windLayer,
+		]);
 
+		const precip = L.layerGroup([precipitationLayer]);
+		const clouds = L.layerGroup([cloudLayer]);
+		const temperature = L.layerGroup([temperatureLayer]);
+		const windL = L.layerGroup([windLayer]);
+		const pressureL = L.layerGroup([pressureLayer]);
 
-			const baseLayers = {
-				OpenStreetMap: openStreetMapLayer,
-				// Add other base layers if you have them
-			};
+		const baseLayers = {
+			OpenStreetMap: openStreetMapLayer,
+			// Add other base layers if you have them
+		};
 
-			const overlayLayers = {
-				"All Weather Layers": weatherLayers,
-				Precipitation: precip,
-				Clouds: clouds,
-				Temperature: temperature,
-				Wind: windL,
-				Pressure: pressureL,
+		const overlayLayers = {
+			"All Weather Layers": weatherLayers,
+			Precipitation: precip,
+			Clouds: clouds,
+			Temperature: temperature,
+			Wind: windL,
+			Pressure: pressureL,
 
-				// Add more overlay layers as needed
-			};
+			// Add more overlay layers as needed
+		};
 
-			L.control.layers(baseLayers, overlayLayers, { collapsed:false }).addTo(map);
+		L.control
+			.layers(baseLayers, overlayLayers, { collapsed: false })
+			.addTo(map);
 
-			map.on("baselayerchange", function (eventLayer) {
-				const selectedLater = eventLayer.name;
-				console.log("Selected Later: ${selectedLayer");
-			});
+		map.on("baselayerchange", function (eventLayer) {
+			const selectedLater = eventLayer.name;
+			console.log("Selected Later: ${selectedLayer");
+		});
 
-			const customIcon = L.icon({
-				iconUrl: './assets/home_5973800.png', // URL to your custom icon image
-				iconSize: [32, 32], // Size of the icon (width, height)
-				iconAnchor: [16, 32], // Anchor point of the icon (usually half of iconSize)
-			  });
+		const customIcon = L.icon({
+			iconUrl: "./assets/home_5973800.png", // URL to your custom icon image
+			iconSize: [32, 32], // Size of the icon (width, height)
+			iconAnchor: [16, 32], // Anchor point of the icon (usually half of iconSize)
+		});
 
-			// Update the marker creation to use the custom icon
-			marker = L.marker([lat, lon], {
+		// Update the marker creation to use the custom icon
+		marker = L.marker([lat, lon], {
 			draggable: true,
 			icon: customIcon,
- 			 }).addTo(map);
+		}).addTo(map);
 
-			for (let i = 0; i < npsParksList.length; i++) {
-				const element = npsParksList[i];
-	
-				var latLon = npsParksList[i].latitude + ', ' + npsParksList[i].longitude
-	
-				console.log(latLon)
-				
-				parksMarker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
-					title: npsParksList[i].name
-				}).addTo(map);
-			}
-			
+		for (let i = 0; i < npsParksList.length; i++) {
+			const element = npsParksList[i];
 
-			// Add a dragend event handler to update the marker's coordinates.
-			marker.on("dragend", function (event) {
-				var newLatLng = event.target.getLatLng();
-				marker
-					.getTooltip()
-					.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
-				marker.openTooltip();
-			});
+			var latLon = npsParksList[i].latitude + ", " + npsParksList[i].longitude;
 
-			// Add a tooltip to the marker.
-			marker.bindTooltip("Lat: " + lat + ", Lon: " + lon).openTooltip();
-		
-		console.log(map)
+			console.log(latLon);
+
+			parksMarker = L.marker(
+				[npsParksList[i].latitude, npsParksList[i].longitude],
+				{
+					title: npsParksList[i].name,
+				}
+			).addTo(map);
+		}
+
+		// Add a dragend event handler to update the marker's coordinates.
+		marker.on("dragend", function (event) {
+			var newLatLng = event.target.getLatLng();
+			marker
+				.getTooltip()
+				.setContent("Lat: " + newLatLng.lat + ", Lon: " + newLatLng.lng);
+			marker.openTooltip();
+		});
+
+		// Add a tooltip to the marker.
+		marker.bindTooltip("Lat: " + lat + ", Lon: " + lon).openTooltip();
+
+		console.log(map);
 	}
-	
-	addEventListener("click", getParkInfo)
 
+	addEventListener("click", getParkInfo);
 
-	const inputElement = document.querySelector('.geoapify-autocomplete-input'); // Select by class
+	const inputElement = document.querySelector(".geoapify-autocomplete-input"); // Select by class
 	//inputElement.value = 'New York, NY, United States of America'; // Set the default value
 
 	function handleDoubleClick() {
 		const inputValue = inputElement.value;
 		if (inputValue) {
-			const [city, state, country] = inputValue.split(', ');
-			console.log('City:', city);
-			console.log('State:', state);
-			console.log('Country:', country);
-	
+			saveSearchToLocalStorage(inputValue); // Save the search to local storage
+			displaySearchHistory(); // Display the updated search history
+			const [city, state, country] = inputValue.split(", ");
 			if (country !== "United States of America") {
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
 				return;
 			}
-	
+
 			// Call the searchParks function here
 			searchParks();
 
-		// Show the weather map
-		const weatherMapDiv = document.getElementById("weatherMap");
-		weatherMapDiv.style.display = "block";
+			// Show the weather map
+			const weatherMapDiv = document.getElementById("weatherMap");
+			weatherMapDiv.style.display = "block";
 
-		//show the 5 day forecast modal button
-		const forecastbtn = document.getElementById("forecastbtn");
-		forecastbtn.style.display = "block";
+			//show the 5 day forecast modal button
+			const forecastbtn = document.getElementById("forecastbtn");
+			forecastbtn.style.display = "block";
 
-		//show the weatherdata
-		const wdata = document.getElementById("weatherData");
-		wdata.style.display = "block";
+			//show the weatherdata
+			const wdata = document.getElementById("weatherData");
+			wdata.style.display = "block";
 
-		parkInfoCont.style.display = "block"
-		
-	
+			parkInfoCont.style.display = "block";
 		}
 	};
-	// Event Lisnters do display Search Results on Double Click as well as key strike on "Enter"
 	inputElement.addEventListener('dblclick', handleDoubleClick);
-	inputElement.addEventListener('keydown', function(event) {
-		if (event.key === 'Enter') {
-		  handleDoubleClick();
-		  const weatherMapDiv = document.getElementById("weatherMap");
-		  weatherMapDiv.style.display = "block";
-		  
-		  //show the 5 day forecast modal button
-		  const forecastbtn = document.getElementById("forecastbtn");
-		  forecastbtn.style.display = "block";
-		  
-		  //show the weatherdata
-		  const wdata = document.getElementById("weatherData");
-		  wdata.style.display = "block";
-		  
-		  parkInfoCont.style.display = "block";
-		}
-		});
+});
+
+
+
+
+
+
+
+
+
 
 	// Add an event listener to the "Search" button to fire the search
 	//document.getElementById("getSearch").addEventListener("click", function () {
