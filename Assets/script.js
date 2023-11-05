@@ -25,7 +25,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		lang: 'en',
 		limit: 8,
 		skipIcons: true,
-		placeholder: 'City, State, USA',
+		placeholder: 'City, State, United States of America',
 		filter: 'us',
 	});
 
@@ -455,7 +455,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 			console.log('State:', state);
 			console.log('Country:', country);
 			
-			if (country !== "United States of America" && country !== "USA" && country !== "US" && country !== "United States" && country !== "") {
+			if (country !== "United States of America" && country !== "") {
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
