@@ -21,15 +21,40 @@ $(document).ready(function () {
 		document.getElementById("autocomplete"),
 		"e4e0693452684c4b936fd96cda49f1dc",
 		{
-		type: 'city',
-		lang: 'en',
-		limit: 8,
-		skipIcons: true,
-		placeholder: 'City, State, United States of America',
-		filter: 'us',
-	});
+			type: "city",
+			lang: "en",
+			limit: 8,
+			skipIcons: true,
+			placeholder: "City, State",
+			filter: "us",
+		}
+	);
 
-	
+	// Function to save the input value to local storage
+	function saveSearchToLocalStorage(inputValue) {
+		const searches = JSON.parse(localStorage.getItem("searches")) || [];
+		searches.unshift(inputValue);
+		localStorage.setItem("searches", JSON.stringify(searches));
+	}
+
+	// Function to display the search history
+	function displaySearchHistory() {
+		const previousSearchContainer = document.querySelector(
+			".previous-search-container"
+		);
+		previousSearchContainer.innerHTML = "";
+
+		const searches = JSON.parse(localStorage.getItem("searches")) || [];
+
+		searches.forEach((search, index) => {
+			const previousSearchDiv = document.createElement("div");
+			previousSearchDiv.classList.add("previous-search");
+			previousSearchDiv.textContent = `${index + 1}. ${search}`;
+			previousSearchContainer.appendChild(previousSearchDiv);
+		});
+	}
+	// Call the displaySearchHistory function when the page loads to display previous searches.
+	window.addEventListener("load", displaySearchHistory);
 
 	//const autocompleteDiv = document.getElementById('autocomplete');
 	//console.log(autocompleteDiv)
@@ -294,28 +319,28 @@ $(document).ready(function () {
 								}
 							});
 						})
-						  .catch((error) => {
-              // Display an error modal for weather data fetch errors
-              const errorModal = document.getElementById("errorModalWeather");
-              const instance = M.Modal.init(errorModal, { dismissible: false });
-              instance.open();
-              console.warn("Error fetching weather data:", error);
-            });
-        } else {
-          // Display an error modal when the location is not found
-          const errorModal = document.getElementById("errorModal");
-          const instance = M.Modal.init(errorModal, { dismissible: false });
-          instance.open();
-        }
-      })
-      .catch((error) => {
-        // Display an error modal for other errors
-        const errorModal = document.getElementById("errorModalLocation");
-        const instance = M.Modal.init(errorModal, { dismissible: false });
-        instance.open();
-        console.error("Error fetching location data:", error);
-      });
-  }
+						.catch((error) => {
+							// Display an error modal for weather data fetch errors
+							const errorModal = document.getElementById("errorModal");
+							const instance = M.Modal.init(errorModal, { dismissible: false });
+							instance.open();
+							console.warn("Error fetching weather data:", error);
+						});
+				} else {
+					// Display an error modal when the location is not found
+					const errorModal = document.getElementById("errorModal");
+					const instance = M.Modal.init(errorModal, { dismissible: false });
+					instance.open();
+				}
+			})
+			.catch((error) => {
+				// Display an error modal for other errors
+				const errorModal = document.getElementById("errorModal");
+				const instance = M.Modal.init(errorModal, { dismissible: false });
+				instance.open();
+				console.error("Error fetching location data:", error);
+			});
+	}
 
 	// Function to update the Leaflet/OpenStreetMaps map with weather data
 	function updateMap(lat, lon) {
@@ -491,44 +516,6 @@ $(document).ready(function () {
 
 			parkInfoCont.style.display = "block";
 		}
-	};
-	inputElement.addEventListener('dblclick', handleDoubleClick);
+	}
+	inputElement.addEventListener("dblclick", handleDoubleClick);
 });
-
-
-
-
-
-
-
-
-
-
-	// Add an event listener to the "Search" button to fire the search
-	//document.getElementById("getSearch").addEventListener("click", function () {
-		// Call the getWeather function
-		
-		
-
-		//document.addEventListener('DOMContentLoaded', function() {
-		//	var elems = document.querySelectorAll('select');
-		//	var instances = M.FormSelect.init(elems);
-			
-			
-			// Get the input value from #locationInput
-		//var city = document.getElementById("cityInput").value;
-		//var state = document.getElementById("stateInput").value;
-		//var location = `${city}, ${state} USA`;
-
-		//const inputValue = `${city}, ${state}, United States of America`;
-		//const [, , country] = inputValue.split(', ');
-
-		//if (country !== "United States of Amerca") {
-		//	const errorModal = document.getElementById("errorModal");
-		//	const instance = M.Modal.init(errorModal, { dismissible: false });
-		//	instance.open();
-		//	return;
-		//}
-
-
-})
