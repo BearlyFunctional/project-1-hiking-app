@@ -99,9 +99,9 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 			parkInfoCont.scrollIntoView({
 				behavior: 'smooth'
 			})
-
 		}
 	}
+
 
 	//weather
 	//day and time
@@ -423,8 +423,11 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 				parksMarker = L.marker([npsParksList[i].latitude, npsParksList[i].longitude], {
 					title: npsParksList[i].name
 				}).addTo(map);
+
+				parksMarker.on('click', function() {
+					console.log('you clicked me');
+				});
 			}
-			
 
 			// Add a dragend event handler to update the marker's coordinates.
 			marker.on("dragend", function (event) {
@@ -446,6 +449,8 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	
 	const inputElement = document.querySelector('.geoapify-autocomplete-input'); // Select by class
 	//inputElement.value = 'New York, NY, United States of America'; // Set the default value
+
+	// YOU ARE HERE!
 	
 	function handleDoubleClick() {
 		const inputValue = inputElement.value;
@@ -502,6 +507,8 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		  parkInfoCont.style.display = "block";
 		}
 		});
+
+		
 
 	// Add an event listener to the "Search" button to fire the search
 	//document.getElementById("getSearch").addEventListener("click", function () {
