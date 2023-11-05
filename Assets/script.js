@@ -25,7 +25,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		lang: 'en',
 		limit: 8,
 		skipIcons: true,
-		placeholder: 'City, State',
+		placeholder: 'City, State, United States of America',
 		filter: 'us',
 	});
 
@@ -282,7 +282,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 						})
 						  .catch((error) => {
               // Display an error modal for weather data fetch errors
-              const errorModal = document.getElementById("errorModal");
+              const errorModal = document.getElementById("errorModalWeather");
               const instance = M.Modal.init(errorModal, { dismissible: false });
               instance.open();
               console.warn("Error fetching weather data:", error);
@@ -296,7 +296,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
       })
       .catch((error) => {
         // Display an error modal for other errors
-        const errorModal = document.getElementById("errorModal");
+        const errorModal = document.getElementById("errorModalLocation");
         const instance = M.Modal.init(errorModal, { dismissible: false });
         instance.open();
         console.error("Error fetching location data:", error);
@@ -481,17 +481,25 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	
 		}
 	};
+	// Event Lisnters do display Search Results on Double Click as well as key strike on "Enter"
 	inputElement.addEventListener('dblclick', handleDoubleClick);
-});
-
-
-
-
-
-
-
-
-
+	inputElement.addEventListener('keydown', function(event) {
+		if (event.key === 'Enter') {
+		  handleDoubleClick();
+		  const weatherMapDiv = document.getElementById("weatherMap");
+		  weatherMapDiv.style.display = "block";
+		  
+		  //show the 5 day forecast modal button
+		  const forecastbtn = document.getElementById("forecastbtn");
+		  forecastbtn.style.display = "block";
+		  
+		  //show the weatherdata
+		  const wdata = document.getElementById("weatherData");
+		  wdata.style.display = "block";
+		  
+		  parkInfoCont.style.display = "block";
+		}
+		});
 
 	// Add an event listener to the "Search" button to fire the search
 	//document.getElementById("getSearch").addEventListener("click", function () {
@@ -518,3 +526,6 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		//	instance.open();
 		//	return;
 		//}
+
+
+})
