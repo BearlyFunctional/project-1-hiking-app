@@ -275,7 +275,6 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 									weatherDayDiv.appendChild(tempDay);
 									weatherDayDiv.appendChild(tempDayC);
 									
-
 									secondWeatherDataDiv.appendChild(weatherDayDiv); // Append to the second location's weatherData div
 									updateMap(lat, lon);
 								}

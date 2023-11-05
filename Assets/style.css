@@ -12,7 +12,6 @@
     height: auto;
   }
 
-
   .autocomplete-container {
     position: relative;
     width: 40%; /* Let the width be determined by the content */
