@@ -455,7 +455,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 			console.log('State:', state);
 			console.log('Country:', country);
 			
-			if (country !== "United States of America" && country !== "USA" && country !== "US" && country !== "") {
+			if (country !== "United States of America" && country !== "USA" && country !== "US" && country !== "United States" && country !== "") {
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
