@@ -25,7 +25,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		lang: 'en',
 		limit: 8,
 		skipIcons: true,
-		placeholder: 'City, State',
+		placeholder: 'City, State, USA',
 		filter: 'us',
 	});
 
@@ -450,18 +450,19 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	function handleDoubleClick() {
 		const inputValue = inputElement.value;
 		if (inputValue) {
-			const [city, state, country] = inputValue.split(', ');
+			const [city, state, country] = inputValue.split(', ,');
 			console.log('City:', city);
 			console.log('State:', state);
 			console.log('Country:', country);
 			
-			if (country !== "United States of America") {
+			if (country !== "United States of America" && country !== "USA" && country !== "US" && country !== "") {
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
 				return;
+				
 			}
-			
+
 			// Call the searchParks function here
 			searchParks();
 			
