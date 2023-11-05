@@ -25,7 +25,7 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		lang: 'en',
 		limit: 8,
 		skipIcons: true,
-		placeholder: 'City, State',
+		placeholder: 'City, State, United States of America',
 		filter: 'us',
 	});
 
@@ -283,14 +283,14 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 						})
 						  .catch((error) => {
               // Display an error modal for weather data fetch errors
-              const errorModal = document.getElementById("errorModal");
+              const errorModal = document.getElementById("errorModalWeather");
               const instance = M.Modal.init(errorModal, { dismissible: false });
               instance.open();
               console.warn("Error fetching weather data:", error);
             });
         } else {
           // Display an error modal when the location is not found
-          const errorModal = document.getElementById("errorModal");
+          const errorModal = document.getElementById("errorModalLocation");
           const instance = M.Modal.init(errorModal, { dismissible: false });
           instance.open();
         }
@@ -442,57 +442,66 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 	}
 	
 	addEventListener("click", getParkInfo)
-
-
+	
+	
 	const inputElement = document.querySelector('.geoapify-autocomplete-input'); // Select by class
 	//inputElement.value = 'New York, NY, United States of America'; // Set the default value
-
+	
 	function handleDoubleClick() {
 		const inputValue = inputElement.value;
+		const undefinedCountry = 'United States of America'
 		if (inputValue) {
 			const [city, state, country] = inputValue.split(', ');
 			console.log('City:', city);
 			console.log('State:', state);
 			console.log('Country:', country);
-	
-			if (country !== "United States of America") {
+			
+			if (country === "" && country !== "United States of America") {
+				console.log(undefinedCountry)
 				const errorModal = document.getElementById("errorModal");
 				const instance = M.Modal.init(errorModal, { dismissible: false });
 				instance.open();
 				return;
 			}
-	
+
 			// Call the searchParks function here
 			searchParks();
-
-		// Show the weather map
-		const weatherMapDiv = document.getElementById("weatherMap");
-		weatherMapDiv.style.display = "block";
-
-		//show the 5 day forecast modal button
-		const forecastbtn = document.getElementById("forecastbtn");
-		forecastbtn.style.display = "block";
-
-		//show the weatherdata
-		const wdata = document.getElementById("weatherData");
-		wdata.style.display = "block";
-
-		parkInfoCont.style.display = "block"
-		
-	
+			
+			// Show the weather map
+			const weatherMapDiv = document.getElementById("weatherMap");
+			weatherMapDiv.style.display = "block";
+			
+			//show the 5 day forecast modal button
+			const forecastbtn = document.getElementById("forecastbtn");
+			forecastbtn.style.display = "block";
+			
+			//show the weatherdata
+			const wdata = document.getElementById("weatherData");
+			wdata.style.display = "block";
+			
+			parkInfoCont.style.display = "block"
 		}
 	};
+
+	// Event Lisnters do display Search Results on Double Click as well as key strike on "Enter"
 	inputElement.addEventListener('dblclick', handleDoubleClick);
-});
-
-
-
-
-
-
-
-
-
+	inputElement.addEventListener('keydown', function(event) {
+		if (event.key === 'Enter') {
+		  handleDoubleClick();
+		  const weatherMapDiv = document.getElementById("weatherMap");
+		  weatherMapDiv.style.display = "block";
+		  
+		  //show the 5 day forecast modal button
+		  const forecastbtn = document.getElementById("forecastbtn");
+		  forecastbtn.style.display = "block";
+		  
+		  //show the weatherdata
+		  const wdata = document.getElementById("weatherData");
+		  wdata.style.display = "block";
+		  
+		  parkInfoCont.style.display = "block";
+		}
+		});
 
 	// Add an event listener to the "Search" button to fire the search
 	//document.getElementById("getSearch").addEventListener("click", function () {
@@ -521,7 +530,4 @@ const autocompleteInput = new autocomplete.GeocoderAutocomplete(
 		//}
 
 
-		
-		
-
-
+})
