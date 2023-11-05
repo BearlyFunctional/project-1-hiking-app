@@ -25,7 +25,7 @@ $(document).ready(function () {
 			lang: "en",
 			limit: 8,
 			skipIcons: true,
-			placeholder: "City, State",
+			placeholder: "City, State, United States of America",
 			filter: "us",
 		}
 	);
@@ -516,6 +516,12 @@ $(document).ready(function () {
 
 			parkInfoCont.style.display = "block";
 		}
-	}
-	inputElement.addEventListener("dblclick", handleDoubleClick);
+	};
+
+inputElement.addEventListener("dblclick", handleDoubleClick);
+inputElement.addEventListener('keydown', function(event) {
+		if (event.key === 'Enter') {
+		  handleDoubleClick();
+		}
 });
+})
