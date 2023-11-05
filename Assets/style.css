@@ -1,26 +1,29 @@
 * {
   color: #2C4742;
 }
-  
 
-  header {
-    background: #DDCFC3;
-    color: white;
-    border-top: solid 5px #A47234;
-    border-bottom: solid 5px #A47234;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-  }
-  
-.title {
-    text-align: center;
-  
+
+header {
+  background: #DDCFC3;
+  color: white;
+  border-top: solid 5px #A47234;
+  border-bottom: solid 5px #A47234;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-  body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    background-color: #DDCFC3;
-  }
+.title {
+  text-align: center;
+
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  background-color: #DDCFC3;
+}
 
 .searchInputs {
   display: flex;
@@ -41,17 +44,21 @@
 }
 
 #stateInput {
-  width: auto; /* Let the width be determined by the content */
-  padding: 10px; /* Add padding for better spacing and appearance */
+  width: auto;
+  /* Let the width be determined by the content */
+  padding: 10px;
+  /* Add padding for better spacing and appearance */
   background-color: #EEEBDA;
   margin: 10px;
   font-size: 20px;
   color: #2C4742;
-  border: none; /* Remove border */
+  border: none;
+  /* Remove border */
   border-radius: 5px;
   text-align: center;
 }
- /*#locationInput {
+
+/*#locationInput {
     width: 30%;
     border: solid 1px;
     background-color: #2e2e2e;
@@ -74,24 +81,24 @@
   justify-content: space-between;
   height: 100%;
   align-items: center;
-  
+
 }
-  
+
 .weather-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 98%;
   border: solid 1px white;
-  color:black;
+  color: black;
   height: 1200px;
   background-color: #71614B;
   border-radius: 15px;
-  
+
 }
 
-.time-container{
-  color:antiquewhite;
+.time-container {
+  color: antiquewhite;
   font-size: 20px;
   font-weight: 400;
 }
@@ -102,7 +109,7 @@
 
 #timeTitle {
   text-align: center;
-  }
+}
 
 .displayDateTime {
   text-align: center;
@@ -132,7 +139,8 @@
 }
 
 header svg {
-  height: 45px;
+  height: 8vh;
+  /* margin: -5px; */
 }
 
 .svg {
@@ -164,8 +172,8 @@ header svg {
   height: 100%;
 }
 
-#modalBtn{
-  color:white;
+#modalBtn {
+  color: white;
   background-color: #A47234;
   border-radius: solid 1px white;
   cursor: pointer;
@@ -195,28 +203,32 @@ header svg {
   font-size: 25px;
 }
 
-.parks-container{
-display: flex;
-flex-direction: column;
-color:white;
-justify-content:center ;
-align-items: center;
-border: solid;
-width: 98%;
-border: solid 1px white;
-margin-top: 10px;
+.parks-container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  width: 98%;
+  border: solid 1px white;
+  margin-top: 10px;
 
-background-color: #6A574D;
-border-radius: 15px;
+  background-color: #6A574D;
+  border-radius: 15px;
 }
 
 .weather\/parkInfo {
   display: flex;
   width: 90%;
   gap: 20px;
-} .weatherInfo {
+}
+
+.weatherInfo {
   width: 35%;
-} .parkInfo {
+}
+
+.parkInfo {
   display: none;
   width: 65%;
   background-color: #C7B29E;
@@ -224,4 +236,18 @@ border-radius: 15px;
   border-radius: 5px;
   padding: 20px;
   line-height: 15px;
+}
+
+.icon {
+  height: 75vh;
+  /* width: 500px; */
+}
+
+header h1 span {
+  display: block;
+width: 45px;
+}
+
+header h1 {
+  display: flex;
 }
