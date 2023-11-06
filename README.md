@@ -1,7 +1,5 @@
 # project-1-hiking-app
 
-<script src="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/dist/index.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@geoapify/geocoder-autocomplete@^1/styles/minimal.css">
 # User Story:
 AS A USER who is interested in hiking,
 
