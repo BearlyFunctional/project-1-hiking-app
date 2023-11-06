@@ -37,8 +37,6 @@
   color: darkblue;
   font-weight: 500;
   text-align: center;
-
-
 }
 
 
@@ -59,7 +57,7 @@
   align-items: center;
 }
 
-#cityInput {
+/*#cityInput {
   width: 15%;
   border: solid 1px;
   background-color: #EEEBDA;
@@ -72,13 +70,13 @@
 }
 
 #stateInput {
-  width: auto; /* Let the width be determined by the content */
-  padding: 10px; /* Add padding for better spacing and appearance */
+  width: auto; /* Let the width be determined by the content 
+  padding: 10px; /* Add padding for better spacing and appearance
   background-color: #EEEBDA;
   margin: 10px;
   font-size: 20px;
   color: #2C4742;
-  border: none; /* Remove border */
+  border: none;
   border-radius: 5px;
   text-align: center;
 }
@@ -88,7 +86,7 @@
     background-color: #2e2e2e;
     margin: 10px;
     color: white;
-  }*/
+  }
 
 .get-search {
   height: 35px;
@@ -97,31 +95,15 @@
   border: solid 2px white;
   border-radius: 2px;
   margin-right: 8px;
-}
-
-
+}*/
 
 .app-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
   align-items: center;
-  
 }
-  
-.weather-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 98%;
-  border: solid 1px white;
-  color:black;
-  height: 1200px;
-  background-color: #71614B;
-  border-radius: 15px;
-  
-}
+
+
 
 .time-container{
   color:antiquewhite;
@@ -155,17 +137,31 @@
   margin: 50px 10px 0 10px;
 }
 
-.mapContainer {
+
+.map-park{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 250px;
-  border: solid 2px black;
-  text-align: center;
-  height: 250px;
+  width: 90%;
+  margin-top: 10px;
   border-radius: 10px;
 }
+
+
+
+.map {
+height: 500px;
+width: 500px;
+margin: 10px;
+margin-right: 100px;
+border: solid 2px white;
+border-radius: 10px;
+}
+
+
+
+
+
 
 header svg {
   height: 45px;
@@ -189,6 +185,7 @@ header svg {
   padding: 20px;
   line-height: 15px;
 }
+
 
 
 .modal {
@@ -227,15 +224,6 @@ header svg {
   cursor: pointer;
 }
 
-
-#weatherMap {
-  width: 90%;
-  height: 80%;
-  margin-block: 25px;
-  border-radius: 15px;
-
-}
-
 .locationSearched {
   color: white;
   font-weight: 500;
@@ -249,21 +237,23 @@ color:white;
 justify-content:center ;
 align-items: center;
 border: solid;
-width: 98%;
 border: solid 1px white;
 margin-top: 10px;
-
 background-color: #6A574D;
 border-radius: 15px;
 }
 
-.weather\/parkInfo {
+.weather-parkInfo {
   display: flex;
   width: 90%;
   gap: 20px;
-} .weatherInfo {
+} 
+
+.weatherInfo {
   width: 35%;
-} .parkInfo {
+} 
+
+.parkInfo {
   display: none;
   width: 65%;
   background-color: #C7B29E;
@@ -271,4 +261,27 @@ border-radius: 15px;
   border-radius: 5px;
   padding: 20px;
   line-height: 15px;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  background-color:  #DDCFC3; 
+  border-top: solid 5px #A47234;
+  height: 10%;
+  text-align: center;
+  margin-top: 10px;
+  border-bottom: solid 5px #A47234;
+}
+
+.previous-search-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+.previous-search {
+  color: brown;
 }
