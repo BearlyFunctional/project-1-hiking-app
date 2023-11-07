@@ -109,6 +109,7 @@
   color:antiquewhite;
   font-size: 20px;
   font-weight: 400;
+  
 }
 
 #weather {
@@ -119,12 +120,14 @@
 #timeTitle {
   text-align: center;
   color: white;
+  color: #2C4742;
   }
 
 .displayDateTime {
   text-align: center;
   margin-top: -15px;
   color: white;
+  color: #2C4742;
 }
 
 .search-container {
