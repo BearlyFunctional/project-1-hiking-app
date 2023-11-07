@@ -159,9 +159,9 @@ border-radius: 10px;
 }
 
 
-
-
-
+#path-title {
+  color: rgb(152, 48, 48)
+}
 
 header svg {
   height: 45px;

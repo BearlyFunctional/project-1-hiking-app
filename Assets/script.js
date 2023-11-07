@@ -440,7 +440,7 @@ $(document).ready(function () {
 		});
 
 		const customIcon = L.icon({
-			iconUrl: "./assets/home_5973800.png", // URL to your custom icon image
+			iconUrl: "./Assets/home_5973800.png", // URL to your custom icon image
 			iconSize: [32, 32], // Size of the icon (width, height)
 			iconAnchor: [16, 32], // Anchor point of the icon (usually half of iconSize)
 		});
